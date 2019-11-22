@@ -1,0 +1,7 @@
+Name,Department,Manager,Gender,Salary,Age
+Robin Hood,IT,,Male,200,19
+Arsene Wenger,IT,Friar Tuck,Male,50,24
+Friar Tuck,Admin,Robin Hood,Female,100,34
+Little John,Finane,Robin Hood,Male,100,60
+Sam Allardyce,IT,,Female,250,45
+Dimi Berbatov,Admin,Little John,Male,50,42
