@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<Courses>
+ <Course>
+  <CourseID>1</CourseID>
+  <Course>R Programming</Course>
+  <Duration_hours>20</Duration_hours>
+  <Fee>10000</Fee>
+ </Course>
+ <Course>
+  <CourseID>2</CourseID>
+  <Course>Machine Learning Algorithms</Course>
+  <Duration_hours>20</Duration_hours>
+  <Fee>10000</Fee>
+ </Course>
+ <Course>
+  <CourseID>3</CourseID>
+  <Course>Data Science with R</Course>
+  <Duration_hours>75</Duration_hours>
+  <Fee>30000</Fee>
+ </Course>
+ <Course>
+  <CourseID>4</CourseID>
+  <Course>Clinical Statistics with R</Course>
+  <Duration_hours>30</Duration_hours>
+  <Fee>15000</Fee>
+ </Course>
+ <Course>
+  <CourseID>5</CourseID>
+  <Course>SAS Programming</Course>
+  <Duration_hours>80</Duration_hours>
+  <Fee>30000</Fee>
+ </Course>
+ <Course>
+  <CourseID>6</CourseID>
+  <Course>Clinical Statistics with SAS</Course>
+  <Duration_hours>30</Duration_hours>
+  <Fee>25000</Fee>
+ </Course>
+</Courses>

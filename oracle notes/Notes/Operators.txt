@@ -1,0 +1,19 @@
+Special Operator:
+
+BETWEEN
+IN
+LIKE
+IS NULL
+
+Negation OPERATORS:
+
+<> or !=
+NOT IN
+NOT BETWEEN
+IS NOT NULL
+NOT LIKE
+
+Logical Operators:
+
+AND
+OR

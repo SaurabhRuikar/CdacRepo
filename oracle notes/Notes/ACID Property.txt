@@ -1,0 +1,30 @@
+
+ Transaction:
+	-Unit of work that is performed on db
+	-Accomplished using DML (Insert Update and Delete) transaction.
+
+	Nature of Transaction:
+	------------------------
+	-	It has always begining and an end.
+	-	can always save or undo.
+	-	When transaction failed in middle, no part of 	transaction can be saved to the DB.
+
+	There are 3 commands that are used for finalised the transaction.
+	commit
+	rollback
+	savepoint
+
+- you perform insert update or delete of data in a table that means in a database and after that it must be end with commit or rol w lback. That is complete transaction.
+
+-Process of DML operation performed on database followed by commit and rollback is called as Transaction.
+
+It has 4 properties:
+ Call as ACID Property:
+
+Atomicity: When transaction happened it guarantee that it happened fully or none of them happened.
+
+Consistency: (Correctness) Correct value will store. Transaction should never leave the db with incorrect value.(Transfer Money from one Acc to another Acc)
+
+Isolation: Transaction kept separately until they are complete. (Joint Account/ATM)
+
+Durability: (Recovery Manager) Guarantee that the db keep track of pending changes in such a way that the server can recover from abnormal transaction.

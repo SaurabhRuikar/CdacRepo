@@ -1,0 +1,330 @@
+JOIN
+
+2 Types
+
+1) Physical join
+	physical Relationship between two tables with integrity constraints. that is using PK and RK.
+	
+2) Logical Join:
+ 
+	a) Combined data 
+		Set Operation:
+		-	It get same data type of data and 
+		-	you need to select same number of column
+
+	b) Combnation of data:
+		-	It get different data type of data from different tables
+ 		-	you need to select different numbers of columns
+
+		i)	Cross Join
+		ii)	Equi join
+		iii)	Inner Join
+			Natural Join
+		iv)	Self Join
+		v)	Outer Join
+			A)	Left Outer Join
+			B)	right Outer Join
+			C)	Full Outer Join
+
+i)Cross Join: 
+	- It is also called as cartetian Products.
+	- Every value(record) from one table is mapped with Every value(record) with 	anoather table.
+	- if one table contains 4 values and another table contains 5 values then result 	contains 5x4=20 values(records)
+	- Combination of data between tables.
+	- It displays all possible combination of data.
+	- output is 
+	  All Valid + All Invalid Combination of data.
+
+Tbale1: comp			
+------------------
+comp_id    cname
+------------------
+comp1	   Sony
+comp2	   Philips
+--------------------
+
+
+Table2: prod
+--------------------------------------------------------
+pid   pname 	     cost   mfg   warranty       cid
+--------------------------------------------------------
+p1    mobile	     				comp1
+p2    LCD TV					comp1
+p3    LED TV					comp1
+p4    Home theater				comp2
+p5    Smart Watch				comp1
+----------------------------------------------------------
+
+s1 ={a,b,c,d}   s2={10,20}
+
+ s1 x s2 = {(a,10),(b,10),(c,10),(d,10),
+		(a,20),(b,20),(c,20),(d,20)}
+-----------------------------------------------------------
+
+There is one case where we get only only valid combination of data by cross join.
+If there is Many-to-One relation.
+
+and if output contains combination of data then using Equi Join you get only valid data.
+------------------------------------------------------------
+
+Table 3:
+Discount 
+------------------------------------
+did     dis_name      d_perc
+d1	min level	5%
+d2	medium lev	15%
+d3	max level	20%
+--------------------------------------------------
+
+Syntax : select col_name1,col_name2,col_name3,.......
+from table1, table2,.........
+
+Exam. select e.ename,e.sal, d.dname from ee e, dept d;
+
+If want data from many to one relation:
+
+select p.pname, p.cost, p.warranty, d.* 
+from prod p, discount d
+where p.pname like '%TV%'
+                and
+	   d.did = d2;
+----------------------------------------------- 
+
+EQUI JOIN:
+	- It is a cross join.
+	- when you write cross join along with join condition with equal to sign 
+	  then it is called as EQUI Join.
+	- (tab1.PK = tab2.RK)	this is the common column from both tables.	
+	- If you don't have PK and RK present in both tables but you have one common
+	  column in both tables then also you can apply equi join on the same.
+
+syntax:
+	select .............
+	from tab1, tab2,..........
+	where [Filter Condition]
+		     and 
+	       [Join Condition]  tab1.PK=tab2.RK/tab2.RK=tab1.PK
+	order by........... [Optional Clause].
+----------------------------------------------------------------------------
+Exam:
+	select p.pname, c.cname
+	from comp c, prod p
+	where p.comp_id = c.comp_id;
+
+
+o/P:	pname	cname
+	Mobile	Sony
+	LCD TV	Sony
+	LED TV	Sony
+	HomeTH	Philips
+	Smart Wt Sony
+-------------------------------------------------------------Que:
+	1) Display deptname and respective department name.
+	How can you justify your answer.
+	2) Manager details and respective department details.
+
+
+Inner Join:
+	- Inner join is same as that of the equi join. 
+	- output of equi join and inner join is same.Only way 	  is differ for write the query
+
+syntax:	select ----------
+	from tab1 inner join tab2
+	ON tab1.col1 = tab2.col1
+	where Filter_condition;
+ 
+syntax:	select ----------
+	from tab1 inner join tab2
+	ON tab1.col1 = tab2.col1
+		inner join tab3
+	ON tab1.col1 = tab3.col1
+		inner join tab4
+	ON tab3.col1 = tab4.col1
+		........
+		........
+	where ------------;
+		where Filter_condition;
+-----------------------------
+	Equi join			-----------------------------
+1. you can write join 
+   condition under WHERE clause.
+2. At a time you can apply join any number of multiple tables
+3. where clause specify after or before join.
+
+-----------------------------
+Inner Join
+------------------------------
+1. you can write join 
+   condition under ON clause.
+2. You can also apply join on any number of table 
+   but at a time consider only 2 tables
+3. Where clause specify the at the end of the query.
+---------------------------------------------------
+
+Que. Display employees details along with accounting dept details.
+
+     	select e.*, d.* from ee e, dept d
+	where d.dname = 'ACCOUNT'
+		and	
+        d.deptno = e.deptno;
+
+     	select e.*, d.* from ee e INNER JOIN dept d
+	ON (e.deptno = d.deptno) 	
+	where d.dname = 'ACCOUNT'
+	
+----------------------------------------------------------------------
+
+Bank Scenario
+-----------------
+
+				acc_dts:		
+			--------------        
+			acc_type----PK     (SB,SAL,DEMAT,LOAN,FD,CURR,CC....)
+			acc_name
+			acc_desc
+
+			cust_dts:
+		----------------
+		cid---------PK
+		cname
+		gender
+		city
+		mailid
+		mobil
+
+			cust_acc_dts
+			---------------
+			accno  -------PK
+			acc_type -----RK
+			acc_open_date
+			acc_bal
+			cid ----------RK
+
+
+1) Display cust name, cust city, acc balance, acc no, acc name  from tables.
+
+--- select cd.cname, cd.city, cad.accno, cad.acc_bal, ad.acc_type 
+	from cust_dts cd INNER JOIN cust_acc_dts cad
+	ON cd.cid = cad.cid 
+		INNER JOIN acc_dts ad
+	ON ad.acc_type = cad.acc_type
+
+2) Display cust name, cust city, acc balance, acc no, acc name  details of male customers from tables 
+
+--- select cd.cname, cd.city, cad.accno, cad.acc_bal, ad.acc_type 
+	from cust_dts cd INNER JOIN cust_acc_dts cad
+	ON cd.cid = cad.cid 
+		INNER JOIN acc_dts ad
+	ON ad.acc_type = cad.acc_type
+	where cd.gender = 'M';
+
+-----------------------------------------------------------------------
+Self Join:
+- For join two tables are required.
+- But in self join you can perform join on the single table.
+- A table is join with iself.
+- That is perform join on single table is self join.
+- Get data from single table using self join.
+- Here with the concept of alise name create two copies of table.
+Exam.
+	select ename, city from  abc a, abc b;
+
+	      a			 b
+     	     abc		abc
+	ename   city     ename    city
+	A	Pune       A	  Pune
+	B	Nashik	   B	  Nashik
+	C	Pune	   C	  Pune
+	D	Pune       D	  Pune
+	E	Mumbai	   E	  Mumbai
+	F	Pune	   F	  Pune	
+
+Questions: 
+ 
+-We want data of such employee details who living in a city  where F is living.
+
+- Get employee details who is working like martin.
+- Who is working in dept where smith is working.
+
+select ename, city from abc a, abc b
+where a.ename = 'F' and a.city=b.city;
+
+Note: 	Why inner query and equi join query is seperatly used 	though its output is same.
+Because:
+	When use outer join along with equi join it is not 	compatible because equi join use where clause for 	writing join whereas outer join use on clause.
+	So always use outer join along with inner join.
+-------------------------------------------------------------
+
+Outer Join:
+-----------
+Display all data from table and only match data from other 
+table.
+3 Types:
+
+1) Left Outer Join OR Left Join
+	All Data From Left Table 
+	and Matched Data From Right Table
+
+2) Right Outer Join OR Right Join
+	All Data From Right Table 
+	and Matched Data From Left Table
+
+3) Full Outer Join OR Full Join
+	Matched Data From Both Tables
+	and Unmatched Data From Left Table and
+	Unmatched Data From Right Table.
+
+Syntax for Outer Join:
+	Select col_name ......
+	from table1 Left Join/Right Join/Full Join table2
+	ON <join condition>
+	where <Filter Condition>
+	Order By .......;
+
+Table1: comp			
+------------------
+comp_id    cname
+------------------
+comp1	   Sony
+comp2	   Philips
+comp3	   LG
+--------------------
+
+Table2: prod
+--------------------------------------------------------
+pid   pname 	     cost   mfg   warranty       cid
+--------------------------------------------------------
+p1    mobile	     				comp1
+p2    LCD TV					comp1
+p3    LED TV					comp1
+p4    Home theater				comp2
+p5    Smart Watch				comp1
+p6    LCD TV					comp2
+p7    CRT TV					comp1
+p8    Laptop					Null
+p9    tablet					Null
+----------------------------------------------------------
+Inner Join Query:
+-----------------
+select p.pid, p.pname, c.* 
+from prod p inner join comp c
+ON p.cmopid = c.compid;
+
+Left Join:
+-----------
+select p.pid, p.pname, c.* 
+from prod p Left Join comp c
+ON p.compid = c.compid;
+
+Right Join:
+-----------
+select p.pid, p.pname, c.* 
+from prod p Right Join comp c
+ON p.compid = c.compid;
+
+Full Join:
+-----------
+select p.pid, p.pname, c.* 
+from prod p Full Join comp c
+ON p.compid = c.compid;
+----------------------------------------------------------	

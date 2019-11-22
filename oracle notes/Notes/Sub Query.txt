@@ -1,0 +1,47 @@
+Sub Query:
+-----------
+- Query within other Query.
+syntax:
+	   Outer Query
+	select * from tab1 
+	where <cond>  =/in (select col from tab2 where )
+				Inner Query
+- with insert, update, delete and select clause subquery is used.
+
+Execution Process:
+	( Inner most query ) To ( Outer most query )
+
+Types of sub Query:
+	a) Single Row Sub Query.
+		- If subquery generating single output value then it is called SRS.
+		- In case of SRS you can write equal to (=) operator in between inner and outer query.
+	b) Multi Row Sub Query.
+		- If subquery generating multiple output value then it is called MRS.
+		- In case of MRS you can write in operator in between inner and outer query.
+		- It will decrease your query level performance and database performance.
+
+Que.1:	Get department name of employee id 7788
+Ans:	(Using Join)
+	select d.* from emp e, dept d 
+	where e.empno=7788 and e.deptno = d.deptno;
+
+	First execute from clause then its output is cross join. Out of that choose records depend on condition 7788. and then take deptno from records, lastly check 	that join condition and then fetch result.
+
+	(Using Sub Query )
+	select dname from dept 
+	where 
+	deptno =(select deptno from emp where empno=7788);
+	(Single Row Subquery-(SRS))
+
+Que.2:  Get the details of employee present in accounting department.
+
+Que.3:  Get all dept details of employee id 7654.
+	
+Que.4:  Display details of department of three employees.(7788,7566,7934)
+
+
+Que.5:  Display department details if there is a manager in that deparment.(It means if manager present in department then display result and if department have 	no manager then don't display the dept details.)
+Que.6:	Display Customer account name of Anshit.
+Que.7:  Display customer details who is maintaining saving bank account.
+
+ 

@@ -1,0 +1,105 @@
+ 1422  whoami
+ 1423  hostname
+ 1425  reboot
+ 1426  cat /etc/os-release
+ 1428  cd Desktop
+ 1429  cat getInfo.txt
+ 1430  touch 1.txt
+ 1431  nano 1.txt
+ 1437  ls
+ 1438  dir
+ 1439  man touch
+ 1441  pwd
+ 1444  uname
+ 1445  ps
+ 1446  history
+ 1447  last reboot
+ 1452  uptime
+ 1453  date
+ 1454  cal
+ 1455  date dd
+ 1458  date %d
+ 1462  date + %d
+ 1463  date +%d
+ 1464  date +%D
+ 1465  date +%m
+ 1466  date +%Y
+ 1467  date +%m
+ 1468  date +%Y
+ 1469  date +%m
+ 1470  date +%M
+ 1472  free -m
+ 1477  who
+ 1479  last
+ 1481  clear
+ 1483  sudo useradd saurabhr
+ 1488  sudo userdel saurabhr
+ 1492  ifconfig
+ 1497  ping 192.168.1.35
+ 1506  gcc -v
+ 1508  cd ..
+ 1510  mkdir bigdata
+ 1519  rmdir python
+ 1546  ./a.out
+ 1556  g++ hello.cpp
+ 1566  gcc hello.cpp -o b
+ 1567  g++ hello.cpp -o b
+ 1569  ./b
+ 1575  sudo apt install default-jre
+ 1576  java -version
+ 1595  find /home -name *.c
+ 1598  find /home/Desktop -name *.c
+ 1613  find /home/ bigdata "*.c"
+ 1618  cp a.txt hey.txt
+ 1621  diff a.txt hey.txt
+ 1638  cat hello.c hello.cpp >> hello1.c
+ 1641  cp hello.c hello1.c
+ 1643  cat hello.c hello1.c > hello2.c//overwrite
+ 1649  vi hello1.c
+ 1691  ssh student@192.168.1.32
+ 1710  cat /proc/cpuinfo
+ 1711  cat /proc/meminfo
+ 1715  ls --format single-column
+ 1716  ls --format double-column
+ 1717  ls --format vertical-column
+ 1718  ls --format comma
+ 1719  ls -ltr
+ 1722  ls -s
+ 1724  ls --size
+ 1725  ls -lh
+ 1726  ls -s bigdata
+ 1727  ls -sh bigdata
+ 1729  ls -S
+ 1730  ls -Sr
+ 1745  ls  -al
+ 1746  ls --hide=*.txt
+ 1755  ls >>result.txt
+ 1758  history >>allcommands.txt
+ 1761  echo "Hello"
+ 1762  echo "Hello">>echo.txt
+ 1768  read count
+ 1769  echo "$count"
+ 1777  mv *.txt office
+ 1783  mv *.txt /home/student/office
+ 1790  find . -name "*.txt" -type f -delete
+ 1802  gzip 1.txt
+ 1804  gunzip 1.txt.gz
+ 1806  gzip 2.txt
+ 1812  zip 2.txt -k
+ 1813  gzip 2.txt -k
+ 1820  tar -czf archive.tar.gz 1.txt 2.txt
+ 1822  tar -czf archive2.tar.gz *.txt
+ 1835  tar -xf archive.tar.gz -C /home/student/company
+ 1845  cat /etc/passwd
+ 1846  $ awk -F':' '{ print $1}' /etc/passwd
+ 1849  getent passwd
+ 1856  getent passwd | grep saurabhr
+ 1866  sudo adduser saurabhr
+ 1882  sudo su saurabhr
+ 1891  sudo apt-get install gnome-system-tools
+ 1893  users-admin
+ 1895  sudo addgroup engg
+ 1905  ./hello.sh
+ 1906  bash hello.sh
+ 1916  chmod +x  hello.sh
+ 

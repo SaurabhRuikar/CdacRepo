@@ -1,0 +1,148 @@
+************************column level with constraint name******************************
+SQL> create table know
+  2  (
+  3    eno number(3) constraint knowit_eno_pk primary key,
+  4   enm varchar2(10),
+  5   sal number (7,2)
+  6   );
+
+Table created.
+
+
+
+
+SQL> desc know;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+
+ ENO                                       NOT NULL NUMBER(3)
+ ENM                                                VARCHAR2(10)
+ SAL                                                NUMBER(7,2)
+
+
+
+SQL> insert into know values(101,'Ram',10000);
+
+1 row created.
+
+
+SQL> insert into know values(103,'Rohan',15000);
+
+1 row created.
+
+
+SQL> insert into know values(105,'Laxman',20000);
+
+1 row created.
+
+
+
+SQL> select * from know;
+
+       ENO ENM               SAL
+---------- ---------- ----------
+       101 Ram             10000
+       103 Rohan           15000
+       105 Laxman          20000
+
+
+
+***************************************Table level constraint*********************
+SQL>  create table stud
+  2   (
+  3    sno number(4),
+  4    enm varchar2(10),
+  5   address varchar2(15),
+  6   salary number(10),
+  7  constraint stud_sno_pk primary key(sno)
+  8  );
+
+Table created.
+
+
+
+SQL> insert into stud values(1110,'Jay','Pune',100000);
+
+1 row created.
+
+
+
+SQL> insert into stud values(1120,'Raj','Mumbai',16000);
+
+1 row created.
+
+
+
+SQL> insert into stud values(1123,'Sarala','Satara',15500);
+
+1 row created.
+
+
+SQL> select * from stud;
+
+       SNO ENM        ADDRESS             SALARY
+---------- ---------- --------------- ----------
+      1110 Jay        Pune                100000
+      1120 Raj        Mumbai               16000
+      1123 Sarala     Satara               15500
+
+
+
+SQL> insert into stud values(1123,'Saru','Sngali',19500);
+insert into stud values(1123,'Saru','Sngali',19500)      //We can't change the value of eno because of primary key constraint
+*
+ERROR at line 1:
+ORA-00001: unique constraint (DAC3.STUD_SNO_PK) violated
+
+
+
+
+
+***********************************************Alter level constraint*******************
+SQL>  create table emp
+  2   (
+  3   eno number(3),
+  4   ename varchar2(10),
+  5   new_sal number(6)
+  6   );
+
+Table created.
+
+SQL> alter table emp
+  2  add constraint emp_eno_pk
+  3  primary key(eno);
+
+Table altered.
+
+
+
+SQL> insert into emp values(112,'Saru',19500);
+
+1 row created.
+
+SQL> insert into emp values(113,'Sarita',29500);
+
+1 row created.
+
+SQL> insert into emp values(115,'Nita',24530);
+
+1 row created.
+
+SQL> select * from emp;
+
+       ENO ENAME         NEW_SAL
+---------- ---------- ----------
+       112 Saru            19500
+       113 Sarita          29500
+       115 Nita            24530
+
+SQL> insert into emp values(112,'Sita',40000);
+insert into emp values(112,'Sita',40000)
+*
+ERROR at line 1:
+ORA-00001: unique constraint (DAC3.EMP_ENO_PK) violated       // We can't change the value of eno because of primary key constraint
+
+
+
+
+

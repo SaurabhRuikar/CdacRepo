@@ -1,0 +1,177 @@
+*********************************Procedure********************************
+
+set serveroutput on
+create or replace procedure pr2 is
+cnt number;
+begin
+select count(*) into cnt from e 
+where dno =30;
+dbms_output.put_line('no of employee present in dept 30 -:'|| cnt);
+end; 
+
+o/p-
+  /
+
+Procedure created.
+
+SQL> exec pr2;     //Explicit call
+no of employee present in dept 30 -: 1
+
+PL/SQL procedure successfully completed.
+
+
+
+**********************or using implicit call**************************
+set serveroutput on
+create or replace procedure pr3 is
+cnt number;
+begin
+select count(*) into cnt from e 
+where dno =30;
+dbms_output.put_line('no of employee present in dept 30 -:'|| cnt);
+end; 
+
+ o/p-
+	/
+
+Procedure created.
+
+SQL> begin
+  2  pr3;
+  3  end;
+  4  /
+no of employee present in dept 30 -:1
+
+PL/SQL procedure successfully completed.
+
+
+
+**********************************Function  running using selectquery**********************
+
+set serveroutput on
+create or replace function f3_mult(n1 number,n2 number)
+return number 
+is
+z number;
+begin
+z:=n1 * n2;
+return z;
+end f3_mult;
+
+o/p-
+ 
+  /
+
+Function created.
+
+SQL> exec f3_mult(12,10);
+BEGIN f3_mult(12,10); END;
+
+      *
+ERROR at line 1:
+ORA-06550: line 1, column 7:
+PLS-00221: 'F3_MULT' is not a procedure or is undefined
+ORA-06550: line 1, column 7:
+PL/SQL: Statement ignored
+
+
+SQL> select f3_mult(10,18) from dual;
+
+F3_MULT(10,18)
+--------------
+           180
+
+SQL>********************* function running using anonymous block*****************************
+set serveroutput on
+create or replacefunction f1_add(n1 number ,n2 number)
+return number
+is
+z number;
+begin
+ z:= n1 + n2;
+return z;
+end f1_add;
+ o/p:- /
+Function created.
+
+
+declare
+a int;
+b int;
+c int;
+begin
+a:=&a;
+b :=&b;
+c:= f1_add(a,b);
+dbms_output.put_line('addition of two number are:'||c);
+end;
+
+
+o/p:-
+ /
+Enter value for a: 10
+old   6: a:=&a;
+new   6: a:=10;
+Enter value for b: 12
+old   7: b :=&b;
+new   7: b :=12;
+addition of two number are:22
+
+PL/SQL procedure successfully completed.
+
+SQL>
+*****************************function running using procedure***************************************************
+
+set serveroutput on
+createor replace function f6_add(n1 number ,n2 number)
+return number
+is
+z number;
+begin
+ z:= n1 + n2;
+return z;
+end f6_add;
+ /
+
+o/p:-
+Function created.
+
+*************
+
+create or replace procedure ptof(a in int,b in int) is
+c int;
+begin
+c:=f6_add(a,b);
+dbms_output.put_line('Addition of two numbers:'|| c);
+end;
+
+
+o/p:-
+Procedure created.
+****************
+********Anonymus block***********
+declare
+a int;
+b int;
+begin
+a:=&a;
+b:=&b;
+ptof(a,b);
+end;
+/
+
+o/p:-
+
+Enter value for a: 12
+old   5: a:=&a;
+new   5: a:=12;
+Enter value for b: 10
+old   6: b:=&b;
+new   6: b:=10;
+Addition of two numbers:22
+
+PL/SQL procedure successfully completed.
+
+******************************************
+
+

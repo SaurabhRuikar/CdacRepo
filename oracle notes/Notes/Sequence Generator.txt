@@ -1,0 +1,23 @@
+Sequence Generator:
+
+-Db object.
+-serial numbers-generates
+
+Two Psuedo Columns generated automatically when you creates SG:
+1) CURRVAL
+2) NEXTVAL
+
+Advantages:
+----------------------
+Generating the PK value automatically
+All this serial numbers are fetch from RAM so fast access
+One SG can uses in any number of tables - reusable.
+
+Syntax:
+
+create sequence sg1
+start with 1
+increment by 1
+maxvalue 500
+cycle
+cache 20

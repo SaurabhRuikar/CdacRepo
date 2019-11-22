@@ -1,0 +1,47 @@
+ Index:
+- When you want any column many time for search at that column you create index.
+- No need to crate index on primary key because By deafult indexes are created for primary key. 
+- When it is created special look up table is created imlicitly it contains keywords and address of that keywords.
+- Efficiency is less for insert and update and delete command as compare to select.
+-  When indexing is not their then search engine go and compare the each record that is called as flat file search. 
+
+  create index ind_name
+  on tab_name(col_name);
+
+	example: CREATE INDEX idx1 ON ee(deptno);
+
+	Types of indexing:
+
+	simple 
+	composite
+	Unique
+	nonunique
+	reverse
+	b tree
+	bitmap
+	function based index
+
+	Simple index:
+	CREATE INDEX IDX2 ON ee(deptno);
+
+Compound index:
+	CREATE INDEX IDX1 ON ee(deptno,ename);
+Unique Index:
+	CREATE UNIQUE INDEX IDX3 ON ee(ename);
+Non-Unique Index:
+	CREATE Unique INDEX IDX4 ON ee(sal);
+
+Bit Map and B Tree:
+
+Cardinality of a particular column
+= No of Distinct Rows/Total no of record
+
+so for empno cardinality is = 14/14=1 (Because Primary Key)
+called as highest cardinality.
+
+job cardinality = 5/14=0.357----------(Lowest Cardinality)
+
+Highest Cardinality: used b-Tree index
+Lowest Cardinality:  Used bit map index
+
+

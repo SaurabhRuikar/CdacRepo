@@ -1,0 +1,253 @@
+
+SQL> select *from book1;
+
+   BOOK_NO BOOK_NAME	   AUTHOR		 COST CATEGORY
+---------- --------------- --------------- ---------- ----------
+       101 LET US C	   DENIS RITCHIE	  450 SYSTEM
+       102 ORACLE	   LONI 		  550 DATABASE
+       103 MASTERING SQL   LONI 		  300 DATABASE
+       104 PLSQL REF	   SCOTT URMAN		  750 DATABASE
+       105 NAT GEO	   ADIS SCOTT		 1000 SCIENCE
+
+SQL> select *from LIB_ISSUE;
+
+LIB_ISSUE_ID	BOOK_NO  MEMBER_ID ISSUE_DAT RETURN_DA
+------------ ---------- ---------- --------- ---------
+	7005	    104 	 2 15-NOV-06 30-NOV-06
+	7006	    101 	 3 18-FEB-06
+	7001	    101 	 1 10-DEC-06
+	7002	    102 	 2 25-DEC-06
+	7003	    104 	 1 15-JAN-06
+	7004	    101 	 1 04-JUL-06 19-JUL-06
+
+6 rows selected.
+
+SQL> select *from LIB_ISSUE1;
+
+LIB_ISSUE_ID	BOOK_NO  MEMBER_ID ISSUE_DAT RETURN_DA
+------------ ---------- ---------- --------- ---------
+	7005	    104 	 2 15-NOV-06 30-NOV-06
+	7006	    101 	 3 18-FEB-06
+	7001	    101 	 1 10-DEC-06
+	7002	    102 	 2 25-DEC-06
+	7003	    104 	 1 15-JAN-06
+	7004	    101 	 1 04-JUL-06 19-JUL-06
+
+6 rows selected.
+
+SQL> select *from MEMBER1;
+
+ MEMBER_ID MEMBER_NAME
+---------- --------------------------------------------------
+MEMBER_ADDR					   ACC_OPEN_
+-------------------------------------------------- ---------
+MEMBERSHIP_TYPE       FEES_PAID MAX_BOOKS_ALLOWED PENULTY_AMT
+-------------------- ---------- ----------------- -----------
+	 1 Richa Sharma
+pune						   10-DEC-05
+LIFETIME		   2500 		5	50000
+
+	 2 Garmima Sen
+pune						   26-MAR-19
+ANUAL			   1000 		3
+
+ MEMBER_ID MEMBER_NAME
+---------- --------------------------------------------------
+MEMBER_ADDR					   ACC_OPEN_
+-------------------------------------------------- ---------
+MEMBERSHIP_TYPE       FEES_PAID MAX_BOOKS_ALLOWED PENULTY_AMT
+-------------------- ---------- ----------------- -----------
+
+	 3 neeraj
+thane						   02-MAR-15
+ANUAL			   3489 		2	20000
+
+	 4 prathamesh
+nashik						   07-JUN-14
+
+ MEMBER_ID MEMBER_NAME
+---------- --------------------------------------------------
+MEMBER_ADDR					   ACC_OPEN_
+-------------------------------------------------- ---------
+MEMBERSHIP_TYPE       FEES_PAID MAX_BOOKS_ALLOWED PENULTY_AMT
+-------------------- ---------- ----------------- -----------
+ANUAL			   1200 		4	34000
+
+	 5 Akshay
+Nasik						   12-MAY-18
+LIFETIME		   2367 		5    67890.67
+
+	 6 gogo
+
+ MEMBER_ID MEMBER_NAME
+---------- --------------------------------------------------
+MEMBER_ADDR					   ACC_OPEN_
+-------------------------------------------------- ---------
+MEMBERSHIP_TYPE       FEES_PAID MAX_BOOKS_ALLOWED PENULTY_AMT
+-------------------- ---------- ----------------- -----------
+Solapur 					   23-MAY-18
+HALF YEARLY		   4350 		6    12345.67
+
+	 7 Swarnya
+Latur						   04-MAR-15
+ANUAL			   3456 		2    45675.48
+
+
+7 rows selected.
+
+SQL> SELECT COUNT(CATEGORY) FROM BOOK1 GROUP BY CATEGORY;
+
+COUNT(CATEGORY)
+---------------
+	      3
+	      1
+	      1
+
+SQL> SELECT BOOK_NO, COUNT(BOOK_NO) AS COUNT FROM LIB_ISSUE1 GROUP BY BOOK_NO;
+
+   BOOK_NO	COUNT
+---------- ----------
+       102	    1
+       101	    3
+       104	    2
+
+SQL> SELECT MAX(PENULTY_AMT) MAX,MIN(PENULTY_AMT) MIN ,AVG(PENULTY_AMT) AVG FROM MEMBER1;
+
+       MAX	  MIN	     AVG
+---------- ---------- ----------
+  67890.67   12345.67 38318.6367
+
+SQL> SELECT MEMBER_ID,COUNT(BOOK_NO) FROM LIB_ISSUE1 WHERE (SELECT COUNT(BOOK_NO) FROM LIB_ISSUE1 >2);
+SELECT MEMBER_ID,COUNT(BOOK_NO) FROM LIB_ISSUE1 WHERE (SELECT COUNT(BOOK_NO) FROM LIB_ISSUE1 >2)
+                                                                                             *
+ERROR at line 1:
+ORA-00936: missing expression
+
+
+SQL> SELECT MEMBER_ID,COUNT(BOOK_NO) FROM LIB_ISSUE1 WHERE( (SELECT COUNT(BOOK_NO) FROM LIB_ISSUE1 )>2);
+SELECT MEMBER_ID,COUNT(BOOK_NO) FROM LIB_ISSUE1 WHERE( (SELECT COUNT(BOOK_NO) FROM LIB_ISSUE1 )>2)
+       *
+ERROR at line 1:
+ORA-00937: not a single-group group function
+
+
+SQL> SELECT MEMBER_ID,COUNT(BOOK_NO) FROM LIB_ISSUE1 WHERE( (SELECT COUNT(BOOK_NO) FROM LIB_ISSUE1 GROUP BY BOOK_NO )>2);
+SELECT MEMBER_ID,COUNT(BOOK_NO) FROM LIB_ISSUE1 WHERE( (SELECT COUNT(BOOK_NO) FROM LIB_ISSUE1 GROUP BY BOOK_NO )>2)
+       *
+ERROR at line 1:
+ORA-00937: not a single-group group function
+
+
+SQL> SELECT MEMBER_ID,COUNT(BOOK_NO) FROM LIB_ISSUE1 HAVING COUNT(BOOK_NO) >2;
+SELECT MEMBER_ID,COUNT(BOOK_NO) FROM LIB_ISSUE1 HAVING COUNT(BOOK_NO) >2
+       *
+ERROR at line 1:
+ORA-00937: not a single-group group function
+
+
+SQL> SELECT MEMBER_ID,COUNT(BOOK_NO) FROM LIB_ISSUE1 HAVING COUNT(*) >2;
+SELECT MEMBER_ID,COUNT(BOOK_NO) FROM LIB_ISSUE1 HAVING COUNT(*) >2
+       *
+ERROR at line 1:
+ORA-00937: not a single-group group function
+
+
+SQL> SELECT MEMBER_ID FROM LIB_ISSUE1 HAVING COUNT(*) >2;
+SELECT MEMBER_ID FROM LIB_ISSUE1 HAVING COUNT(*) >2
+       *
+ERROR at line 1:
+ORA-00937: not a single-group group function
+
+
+SQL> SELECT MEMBER_ID FROM LIB_ISSUE1 HAVING (COUNT(*)>2);
+SELECT MEMBER_ID FROM LIB_ISSUE1 HAVING (COUNT(*)>2)
+       *
+ERROR at line 1:
+ORA-00937: not a single-group group function
+
+
+SQL> SELECT MEMBER_ID FROM LIB_ISSUE1 GROUP BY BOOK_NO HAVING (COUNT(*)>2);
+SELECT MEMBER_ID FROM LIB_ISSUE1 GROUP BY BOOK_NO HAVING (COUNT(*)>2)
+       *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression
+
+
+SQL> SELECT MEMBER_ID,BOOK_NO FROM LIB_ISSUE1 GROUP BY BOOK_NO HAVING (COUNT(*)>2);
+SELECT MEMBER_ID,BOOK_NO FROM LIB_ISSUE1 GROUP BY BOOK_NO HAVING (COUNT(*)>2)
+       *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression
+
+
+SQL> SELECT MEMBER_ID,COUNT(BOOK_NO )FROM LIB_ISSUE1 GROUP BY BOOK_NO HAVING (COUNT(*)>2);
+SELECT MEMBER_ID,COUNT(BOOK_NO )FROM LIB_ISSUE1 GROUP BY BOOK_NO HAVING (COUNT(*)>2)
+       *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression
+
+
+SQL> SELECT MEMBER_ID,COUNT(BOOK_NO )FROM LIB_ISSUE1 GROUP BY MEMBER_ID HAVING (COUNT(*)>2);
+
+ MEMBER_ID COUNT(BOOK_NO)
+---------- --------------
+	 1		3
+
+SQL> SELECT MEMBER_ID,BOOK_NO,COUNT(BOOK_NO) FROM LIB_ISSUE1 GROUP BY MEMBER_ID,BOOK_NO ORDER BY BOOK_NO; 
+
+ MEMBER_ID    BOOK_NO COUNT(BOOK_NO)
+---------- ---------- --------------
+	 1	  101		   2
+	 3	  101		   1
+	 2	  102		   1
+	 1	  104		   1
+	 2	  104		   1
+
+SQL> SELECT TO_CHAR(ISSUE_DATE,'MON')  AS MONTH, COUNT(BOOK_NO) FROM LIB_ISSUE1 GROUP BY TO_CHAR(ISSUE_DATE,'MON');
+
+MON COUNT(BOOK_NO)
+--- --------------
+NOV		 1
+DEC		 2
+FEB		 1
+JUL		 1
+JAN		 1
+
+SQL> SELECT TO_CHAR(ISSUE_DATE,'MON')  AS MONTH, COUNT(BOOK_NO) FROM LIB_ISSUE1 GROUP BY TO_CHAR(ISSUE_DATE,'MON') ORDER BY COUNT(BOOK_NO);
+
+MON COUNT(BOOK_NO)
+--- --------------
+NOV		 1
+FEB		 1
+JAN		 1
+JUL		 1
+DEC		 2
+
+SQL> SELECT TO_CHAR(ISSUE_DATE,'MON')  AS MONTH, COUNT(BOOK_NO) FROM LIB_ISSUE1 GROUP BY TO_CHAR(ISSUE_DATE,'MON') ORDER BY COUNT(BOOK_NO) DESC;
+
+MON COUNT(BOOK_NO)
+--- --------------
+DEC		 2
+JAN		 1
+JUL		 1
+NOV		 1
+FEB		 1
+
+SQL> SELECT BOOK_NO FROM BOOK1 
+  2  WHERE BOOK_NO NOT IN(SELECT BOOK_NO FROM LIB_ISSUE1);
+
+   BOOK_NO
+----------
+       103
+       105
+
+SQL> SELECT MEMBER_ID FROM MEMBER1 
+  2  WHERE MEMBER_ID NOT IN(SELECT MEMBER_ID FROM LIB_ISSUE1);
+
+ MEMBER_ID
+----------
+	 5
+	 6
+	 7
+	 4
+

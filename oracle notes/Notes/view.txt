@@ -1,0 +1,49 @@
+ Views:
+
+-Database Objects  - means it stores in database until it drops from db.
+
+-Virtual table/Mirror image of an table
+
+-drop the base table- view becomes invalid
+
+-drop the view- base table becomes not affected.
+
+Advantages:
+ 
+-Security---No table name reflect when you fetch records from base table.
+
+-doesn't store any data-- so no memory cosumtion
+
+-view will provide row level, column level and table level access to the table data.
+
+- you can store any complex query in view.
+
+
+Types of views:
+
+1)Updatable and non-updatable views
+
+when you insert recoed in view so it affects base table that is updatable
+ and when your view is created using following things
+-group by
+-order by
+-distinct clause
+-any complex query using join 
+whenever you update your view table but not affect the base table.
+
+2)simple and complex views:
+simple view using simple query and complex view using complex query. 
+or we can say that simple - updatable and complex is non updatable.
+3)read only views
+
+-create view v1 as select * from ee with read only
+it is non updatable view
+
+4)force views
+
+if base table is not present then also you can create view.
+
+create force view v11 as selet * from ud15;
+
+
+ 

@@ -1,0 +1,62 @@
+Referential Integrity Constraint:
+
+
+Example:
+
+
+-Denormalization:
+	Maintening all required imformation in one single table is Denormalization
+
+Dis Adv:
+	-More Disk Space
+	-Data Dupicacy
+	-Data Retrival Time Is High
+
+
+-Normlization:
+	Dividing big table into sub table.
+
+Note: You are unable to remove 100 % data duplicacy from any of the database.
+
+This is yours table:
+
+eno	enm	sal	dno	dname
+e1	a	1200	d1	prod
+e2	b	2300	d1	prod
+e3	x	1500	d1	prod
+e4	a	1800	d2	sales	
+e5	z	1100	d2	sales
+
+
+Basically 3 Normal Forms:
+
+1)Ist Normal Form:
+
+-Divide the tables in the sub tables based on repeated groups of data.
+- Single cell contains single value.
+- Every column is atomic.
+
+Example here:
+
+This is yours table:
+	emp				dept
+eno	enm	sal		dno	dname
+e1	a	1200		d1	prod
+e2	b	2300		d1	prod
+e3	x	1500		d1	prod
+e4	a	1800		d2	sales	
+e5	z	1100		d2	sales
+
+2) IInd Normal Form:
+
+Remove Duplicate records and define primary key.
+
+
+	emp				dept
+eno	enm	sal	dno	dno	dname
+e1	a	1200	d1	d1	prod
+e2	b	2300	d1	d2	sales
+e3	x	1500	d1	
+e4	a	1800	d2	
+e5	z	1100	d2	
+

@@ -1,0 +1,17 @@
+Maintening all required information in a single table that is called as denormalisation.
+
+Disadvantages:
+
+More Discspace
+data duplicacy
+Data retrival time is high
+
+Normalization is a database design technique which organizes tables in a manner that reduces redundancy and dependency of data.
+
+It divides larger tables to smaller tables and link them using relationships. 
+
+DCL
+
+Grant <Previlage List> on <Schemaname.username.Object> to <servername.schemaname.user>
+
+revoke <Previlage List> on <Schemaname.username.Object> from <servername.schemaname.user>

@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<doc>
+ <movie>
+  <Rank>1</Rank>
+  <MovieName>PK</MovieName>
+  <Worldwide_.gross_Crores>792</Worldwide_.gross_Crores>
+ </movie>
+ <movie>
+  <Rank>2</Rank>
+  <MovieName>Bajrangi Bhaijaan</MovieName>
+  <Worldwide_.gross_Crores>626</Worldwide_.gross_Crores>
+ </movie>
+ <movie>
+  <Rank>3</Rank>
+  <MovieName>Sultan</MovieName>
+  <Worldwide_.gross_Crores>584.25</Worldwide_.gross_Crores>
+ </movie>
+ <movie>
+  <Rank>4</Rank>
+  <MovieName>Dhoom 3</MovieName>
+  <Worldwide_.gross_Crores>540</Worldwide_.gross_Crores>
+ </movie>
+ <movie>
+  <Rank>5</Rank>
+  <MovieName>Prem Ratan Dhan Payo</MovieName>
+  <Worldwide_.gross_Crores>432</Worldwide_.gross_Crores>
+ </movie>
+ <movie>
+  <Rank>6</Rank>
+  <MovieName>Chennai Express</MovieName>
+  <Worldwide_.gross_Crores>423</Worldwide_.gross_Crores>
+ </movie>
+ <movie>
+  <Rank>7</Rank>
+  <MovieName>3 Idiots</MovieName>
+  <Worldwide_.gross_Crores>392</Worldwide_.gross_Crores>
+ </movie>
+ <movie>
+  <Rank>8</Rank>
+  <MovieName>Dilwale</MovieName>
+  <Worldwide_.gross_Crores>372</Worldwide_.gross_Crores>
+ </movie>
+ <movie>
+  <Rank>9</Rank>
+  <MovieName>Bajirao Mastani</MovieName>
+  <Worldwide_.gross_Crores>358</Worldwide_.gross_Crores>
+ </movie>
+ <movie>
+  <Rank>10</Rank>
+  <MovieName>Kick</MovieName>
+  <Worldwide_.gross_Crores>351</Worldwide_.gross_Crores>
+ </movie>
+</doc>

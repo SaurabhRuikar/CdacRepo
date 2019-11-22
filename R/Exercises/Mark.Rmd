@@ -1,0 +1,55 @@
+---
+title: "Descriptive Statistics"
+output:
+  word_document: default
+  html_document: default
+---
+
+# Descriptive Statistics
+
+```{r echo=FALSE}
+data("mtcars")
+str(mtcars)
+
+```
+
+
+
+
+## Measures of central tendency
+### Mean
+```{r}
+data("mtcars")
+mean(mtcars$mpg)
+
+```
+
+### Meadin
+
+The median is `r median(mtcars$mpg)`.
+
+### Quartile
+
+```{r}
+data("mtcars")
+quantile(mtcars$mpg)
+
+```
+
+## Measures of Dispersion
+###Varience
+
+```{r}
+data("mtcars")
+var(mtcars$mpg)
+
+```
+
+### Standard Deviation
+
+```{r}
+data("mtcars")
+sd(mtcars$mpg)
+
+```
+

@@ -1,0 +1,43 @@
+ Analytical Function:
+
+It is computed for each and every record/rowof table . But in agreegate function it is based on group.
+
+ROWNUM is a "pseudocolumn" that assigns a number to each row returned by a query:
+
+SQL> select rownum, ename, deptno
+  2  from emp;
+
+    ROWNUM ENAME          DEPTNO
+---------- ---------- ----------
+         1 SMITH              99
+         2 ALLEN              30
+         3 WARD               30
+         4 JONES              20
+         5 MARTIN             30
+         6 BLAKE              30
+         7 CLARK              10
+         8 SCOTT              20
+         9 KING               10
+        10 TURNER             30
+        11 FORD               20
+        12 MILLER             10
+ROW_NUMBER is an analytic function that assigns a number to each row according to its ordering within a group of rows:
+
+SQL> select ename, deptno, row_number() over (partition by deptno order by ename) rn
+  2  from emp;
+
+ENAME          DEPTNO         RN
+---------- ---------- ----------
+CLARK              10          1
+KING               10          2
+MILLER             10          3
+FORD               20          1
+JONES              20          2
+SCOTT              20          3
+ALLEN              30          1
+BLAKE              30          2
+MARTIN             30          3
+TURNER             30          4
+WARD               30          5
+SMITH              99          1
+

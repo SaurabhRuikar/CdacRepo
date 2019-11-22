@@ -1,0 +1,645 @@
+SQL> SELECT * FROM DEPT;
+
+   DEPT_NO DEPT_NAME  LOCATION
+---------- ---------- ------------------------------
+      1200 Operations grtgrgrtg
+       101 Pharma     mtngrtg
+       101 Pharma     ti5tngg
+       104 Tech       ngttngg
+       105 Accounts   nrngg
+       106 Marketing  thrgn
+
+6 rows selected.
+
+SQL> SELECT * FROM DEPT1;
+SELECT * FROM DEPT1
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> SELECT * FROM DEPTART;
+SELECT * FROM DEPTART
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> SELECT * FROM EMPLOYEE1;
+
+     EMPID ENAME		JOB			MAGANER HIREDATE       SALAY  COMMISION      DEPNO G
+---------- -------------------- -------------------- ---------- --------- ---------- ---------- ---------- -
+      7369 smith		clerk			   7902 17-DEC-80	1300			20 M
+      7499 allen		salsman 		   7698 20-FEB-81	2340	    300 	30 F
+      7521 ward 		salsman 		   7698 22-FEB-81	1885	    500 	30 M
+      7566 jones		manager 		   7839 02-MAR-81	3175			20 F
+      7654 martin		salsman 		   7698 28-SEP-81	1885	   1400 	30 M
+      7698 blake		manager 		   7839 01-MAY-81	3050			30 M
+      7782 clark		manager 		   7839 09-JUN-81	2650			10 M
+      7788 scott		analyst 		   7566 19-APR-87	4992			20 F
+      7839 king 		president			17-NOV-81	6760			10 M
+      7844 turner		salsman 		   7600 08-SEP-81	2210	      0 	30 F
+      7876 admas		clerk			   7788 23-MAY-87	1690			20 M
+      7879 james		clerk			   7698 03-DEC-87	1495			30 F
+      7902 ford 		analyst 		   7566 03-DEC-81	4992			20 M
+
+13 rows selected.
+
+SQL> SELECT * FROM DEPARTMENT1;
+
+no rows selected
+
+SQL> DESC DEPARTMENT;
+ERROR:
+ORA-04043: object DEPARTMENT does not exist
+
+
+SQL> DESC DEPARTMENT1;
+ Name										     Null?    Type
+ ----------------------------------------------------------------------------------- -------- --------------------------------------------------------
+ DEPTNO 									     NOT NULL NUMBER(2)
+ DNAME											      VARCHAR2(14)
+ LOC											      VARCHAR2(13)
+
+SQL> ALTER TABLE DEAPRTMENT1 RENAME COLUMN LOC TO LID;
+ALTER TABLE DEAPRTMENT1 RENAME COLUMN LOC TO LID
+*
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> ALTER TABLE DEPARTMENT1 RENAME COLUMN LOC TO LID;
+
+Table altered.
+
+SQL> ALTER TABLE DEPARTMENT1 MODIFY LID NUMBER;
+
+Table altered.
+
+SQL> DESC DEPARTMENT1;
+ Name										     Null?    Type
+ ----------------------------------------------------------------------------------- -------- --------------------------------------------------------
+ DEPTNO 									     NOT NULL NUMBER(2)
+ DNAME											      VARCHAR2(14)
+ LID											      NUMBER
+
+SQL> CREATE TABLE LOCATION(LID NUMBER,BUILDING VARCHAR2(20),STE_NAME VARCHAR2(20),AREA VARCHAR2(20),CITY VARCHAR2(20),CID NUMBER,);
+CREATE TABLE LOCATION(LID NUMBER,BUILDING VARCHAR2(20),STE_NAME VARCHAR2(20),AREA VARCHAR2(20),CITY VARCHAR2(20),CID NUMBER,)
+                                                                                                                            *
+ERROR at line 1:
+ORA-00904: : invalid identifier
+
+
+SQL> CREATE TABLE LOCATION(LID NUMBER,BUILDING VARCHAR2(20),STE_NAME VARCHAR2(20),AREA VARCHAR2(20),CITY VARCHAR2(20),CID NUMBER);
+
+Table created.
+
+SQL> CREATE TABLE COUNTRY(CID NUMBER, CNAME VARCHAR2(20));
+
+Table created.
+
+SQL> DESC COUNTRY;
+ Name										     Null?    Type
+ ----------------------------------------------------------------------------------- -------- --------------------------------------------------------
+ CID											      NUMBER
+ CNAME											      VARCHAR2(20)
+
+SQL> DESC LOCATION;
+ Name										     Null?    Type
+ ----------------------------------------------------------------------------------- -------- --------------------------------------------------------
+ LID											      NUMBER
+ BUILDING										      VARCHAR2(20)
+ STE_NAME										      VARCHAR2(20)
+ AREA											      VARCHAR2(20)
+ CITY											      VARCHAR2(20)
+ CID											      NUMBER
+
+SQL> DESC DEPARTMENT1;
+ Name										     Null?    Type
+ ----------------------------------------------------------------------------------- -------- --------------------------------------------------------
+ DEPTNO 									     NOT NULL NUMBER(2)
+ DNAME											      VARCHAR2(14)
+ LID											      NUMBER
+
+SQL> DESC EMPLOYEE1;
+ Name										     Null?    Type
+ ----------------------------------------------------------------------------------- -------- --------------------------------------------------------
+ EMPID											      NUMBER
+ ENAME											      VARCHAR2(20)
+ JOB											      VARCHAR2(20)
+ MAGANER										      NUMBER
+ HIREDATE										      DATE
+ SALAY											      NUMBER
+ COMMISION										      NUMBER
+ DEPNO											      NUMBER
+ GENDER 										      CHAR(1)
+
+SQL> ALTER TABLE COUNTRY 
+  2  ADD CONSTRAINT CON_CID_PK PRIMARY KEY(CID);
+
+Table altered.
+
+SQL> ALTER TABLE LOCATION
+  2  ADD CONSTRAINT LOC_LID_PK PRIMARY KEY(LID);
+
+Table altered.
+
+SQL> ALTER TABLE LOCATION
+  2  ADD CONSTRAINT LOC_CID_FK FOREIGN KEY(CID) REFRENCES COUNTRY(CID);
+ADD CONSTRAINT LOC_CID_FK FOREIGN KEY(CID) REFRENCES COUNTRY(CID)
+                                           *
+ERROR at line 2:
+ORA-00905: missing keyword
+
+
+SQL> ALTER TABLE LOCATION
+  2  ADD CONSTRAINT LOC_CID_FK FOREIGN KEY(CID) REFRENCES TO COUNTRY(CID);
+ADD CONSTRAINT LOC_CID_FK FOREIGN KEY(CID) REFRENCES TO COUNTRY(CID)
+                                           *
+ERROR at line 2:
+ORA-00905: missing keyword
+
+
+SQL> ADD CONSTRAINT LOC_CID_FK FOREIGN KEY(CID) REFERENCES COUNTRY(CID);
+SP2-0734: unknown command beginning "ADD CONSTR..." - rest of line ignored.
+SQL> ALTER TABLE LOCATION
+  2  ADD CONSTRAINT LOC_CID_FK FOREIGN KEY(CID) REFERENCES COUNTRY(CID);
+
+Table altered.
+
+SQL> ALTER TABLE DEPARTMENT1
+  2  ADD CONSTRAINT DEP_LID_FK FOREIGN KEY(LID) REFERENCES LOCATION(LID);
+
+Table altered.
+
+SQL> ALTER TABLE EMPLOYEE1
+  2  ADD CONSTRAINT EMP_EID_PK PRIMARY KEY(EMPID);
+
+Table altered.
+
+SQL> ALTER TABLE EMPLOYEE1
+  2  ADD CONSTRAINT EMP_DNO_PK FOREIGN KEY(DEPNO) REFRENCES DEPARTMENT1(DEPTNO);
+ADD CONSTRAINT EMP_DNO_PK FOREIGN KEY(DEPNO) REFRENCES DEPARTMENT1(DEPTNO)
+                                             *
+ERROR at line 2:
+ORA-00905: missing keyword
+
+
+SQL> ALTER TABLE EMPLOYEE1
+  2  ADD CONSTRAINT EMP_DNO_PK FOREIGN KEY(DEPNO) REFERENCES DEPARTMENT1(DEPTNO);
+ADD CONSTRAINT EMP_DNO_PK FOREIGN KEY(DEPNO) REFERENCES DEPARTMENT1(DEPTNO)
+               *
+ERROR at line 2:
+ORA-02298: cannot validate (DBDA22.EMP_DNO_PK) - parent keys not found
+
+
+SQL> ALTER TABLE EMPLOYEE1
+  2  
+SQL> ALTER TABLE EMPLOYEE1
+  2  
+SQL> 
+SQL> ALTER TABLE EMPLOYEE1
+  2  ADD CONSTRAINT EMP1_DNO_PK FOREIGN KEY(DEPNO) REFERENCES DEPARTMENT1(DEPTNO);
+ADD CONSTRAINT EMP1_DNO_PK FOREIGN KEY(DEPNO) REFERENCES DEPARTMENT1(DEPTNO)
+               *
+ERROR at line 2:
+ORA-02298: cannot validate (DBDA22.EMP1_DNO_PK) - parent keys not found
+
+
+SQL> INSERT INTO COUNTRY VALUES(91,'INDIA');
+
+1 row created.
+
+SQL> INSERT INTO COUNTRY VALUES(92,'USA');
+
+1 row created.
+
+SQL> INSERT INTO COUNTRY VALUES(93,'AUS');
+
+1 row created.
+
+SQL> INSERT INTO COUNTRY VALUES(94,'CANADA');
+
+1 row created.
+
+SQL> INSERT INTO LOCATION VALUES(&LID,'&BUILDING','&STE_NAME','&AREA','&CITY',&CID);
+Enter value for lid: 415022
+Enter value for building: A1
+Enter value for ste_name: BAKER ST
+Enter value for area: KOTHRUD
+Enter value for city: SATARA
+Enter value for cid: 91
+old   1: INSERT INTO LOCATION VALUES(&LID,'&BUILDING','&STE_NAME','&AREA','&CITY',&CID)
+new   1: INSERT INTO LOCATION VALUES(415022,'A1','BAKER ST','KOTHRUD','SATARA',91)
+
+1 row created.
+
+SQL> /
+Enter value for lid: 411006
+Enter value for building: GURUKRUPA APT
+Enter value for ste_name: KHAUGALLI
+Enter value for area: SHIVAJINAGAR
+Enter value for city: PUNE
+Enter value for cid: 91
+old   1: INSERT INTO LOCATION VALUES(&LID,'&BUILDING','&STE_NAME','&AREA','&CITY',&CID)
+new   1: INSERT INTO LOCATION VALUES(411006,'GURUKRUPA APT','KHAUGALLI','SHIVAJINAGAR','PUNE',91)
+
+1 row created.
+
+SQL> /
+Enter value for lid: 111111
+Enter value for building: B2
+Enter value for ste_name: MODERNROAD
+Enter value for area: TIME SQUARE
+Enter value for city: NYK
+Enter value for cid: 92
+old   1: INSERT INTO LOCATION VALUES(&LID,'&BUILDING','&STE_NAME','&AREA','&CITY',&CID)
+new   1: INSERT INTO LOCATION VALUES(111111,'B2','MODERNROAD','TIME SQUARE','NYK',92)
+
+1 row created.
+
+SQL> /
+Enter value for lid: 412301
+Enter value for building: COMP_DP
+Enter value for ste_name: HIGHWAY
+Enter value for area: SWARGATE
+Enter value for city: SYDNEY
+Enter value for cid: 93
+old   1: INSERT INTO LOCATION VALUES(&LID,'&BUILDING','&STE_NAME','&AREA','&CITY',&CID)
+new   1: INSERT INTO LOCATION VALUES(412301,'COMP_DP','HIGHWAY','SWARGATE','SYDNEY',93)
+
+1 row created.
+
+SQL> /
+Enter value for lid: 412014
+Enter value for building: CTC
+Enter value for ste_name: NH10
+Enter value for area: KOLHAPUR
+Enter value for city: KOLHAPUR
+Enter value for cid: 94
+old   1: INSERT INTO LOCATION VALUES(&LID,'&BUILDING','&STE_NAME','&AREA','&CITY',&CID)
+new   1: INSERT INTO LOCATION VALUES(412014,'CTC','NH10','KOLHAPUR','KOLHAPUR',94)
+
+1 row created.
+
+SQL> INSERT INTO DEPARTMNENT1 VALUES(10,'COMPUTER',415022);
+INSERT INTO DEPARTMNENT1 VALUES(10,'COMPUTER',415022)
+            *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> INSERT INTO DEPARTMENT1 VALUES(10,'COMPUTER',415022);
+
+1 row created.
+
+SQL> INSERT INTO DEPARTMENT1 VALUES(20,'ENTC',111111);
+
+1 row created.
+
+SQL> INSERT INTO DEPARTMENT1 VALUES(30,'MECH',412014);
+
+1 row created.
+
+SQL> INSERT INTO DEPARTMENT1 VALUES(40,'CIVIL',412301);
+
+1 row created.
+
+SQL> INSERT INTO DEPARTMENT1 VALUES(50,'IT',411006);
+
+1 row created.
+
+SQL> ALTER TABLE EMPLOYEE1
+  2  ADD CONSTRAINT EMP_DNO_FK FOREIGN KEY(DEPNO) REFERENCES DEPARTMENT1(DEPNO);
+ADD CONSTRAINT EMP_DNO_FK FOREIGN KEY(DEPNO) REFERENCES DEPARTMENT1(DEPNO)
+                                                                    *
+ERROR at line 2:
+ORA-00904: "DEPNO": invalid identifier
+
+
+SQL> ALTER TABLE EMPLOYEE1
+  2  ADD CONSTRAINT EMP_DNO_FK FOREIGN KEY(DEPNO) REFERENCES DEPARTMENT1(DEPTNO);
+
+Table altered.
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> SELECT * FROM COMP;
+
+       CID CNAME
+---------- ----------
+	 1 Sony
+	 2 Samsung
+	 3 Apple
+	 4 LG
+	 5 LG
+	 6 LG
+
+6 rows selected.
+
+SQL> CREATE TABLE PRODUCT(PID NUMBER CONSTRAINT PRO_PID_PK PRIMARY KEY, PNAME VARCHAR2(20), PRICE NUMBER, WAR VARCHAR2(10),CID NUMBER);
+
+Table created.
+
+SQL> CREATE TABLE DISCOUNT(DID NUMBER CONSTRAINT DISC_ID_PK PRIMARY KEY,DLVL NUMBER,DPCTG NUMBER);
+
+Table created.
+
+SQL> ALTER TABLE DISCOUNT
+  2  
+SQL> 
+SQL> ALTER TABLE PRODUCT
+  2  ADD CONSTRAINT PRO_CID_FK FOREIGN KEY(CID) REFERENCES DISCOUNT(DID);
+
+Table altered.
+
+SQL> ALTER TABLE COMP
+  2  D_FK FOREIGNES DISCOUNT(DID);
+D_FK FOREIGNES DISCOUNT(DID)
+*
+ERROR at line 2:
+ORA-01735: invalid ALTER TABLE option
+
+
+SQL> INSERT INTO DISCOUNT VALUES(1,1,10)'
+  2  
+SQL> INSERT INTO DISCOUNT VALUES(1,1,10);
+
+1 row created.
+
+SQL> INSERT INTO DISCOUNT VALUES(2,2,20);
+
+1 row created.
+
+SQL> INSERT INTO DISCOUNT VALUES(3,3,30);
+
+1 row created.
+
+SQL> INSERT INTO PRODUCT VALUES(&PID,'&PNAME',&PRICE,'&WAR',&CID);
+Enter value for pid: 1
+Enter value for pname: TV
+Enter value for price: 20000
+Enter value for war: 2 YEAR
+Enter value for cid: 2
+old   1: INSERT INTO PRODUCT VALUES(&PID,'&PNAME',&PRICE,'&WAR',&CID)
+new   1: INSERT INTO PRODUCT VALUES(1,'TV',20000,'2 YEAR',2)
+
+1 row created.
+
+SQL> DROP CONSTRAINT PRO_CID_FK;
+DROP CONSTRAINT PRO_CID_FK
+     *
+ERROR at line 1:
+ORA-00950: invalid DROP option
+
+
+SQL> ALTER TABLE PRODUCT
+  2  DROP CONSTRAINT PRO_CID_FK;
+
+Table altered.
+
+SQL> ALTER TABLE PRODUCT
+  2  ADD CONSTRAINT PRO_CID_FK FOREIGN KEY(CID) REFERENCES COMP(CID);
+ADD CONSTRAINT PRO_CID_FK FOREIGN KEY(CID) REFERENCES COMP(CID)
+                                                           *
+ERROR at line 2:
+ORA-02270: no matching unique or primary key for this column-list
+
+
+SQL> INSERT INTO PRODUCT VALUES(&PID,'&PNAME',&PRICE,'&WAR',&CID);
+Enter value for pid: 2
+Enter value for pname: FRIDGE
+Enter value for price: 10000
+Enter value for war: 1 YEAR
+Enter value for cid: 1
+old   1: INSERT INTO PRODUCT VALUES(&PID,'&PNAME',&PRICE,'&WAR',&CID)
+new   1: INSERT INTO PRODUCT VALUES(2,'FRIDGE',10000,'1 YEAR',1)
+
+1 row created.
+
+SQL> /
+Enter value for pid: 3
+Enter value for pname: WASHING MACHINE
+Enter value for price: 15000
+Enter value for war: 3 YEAR
+Enter value for cid: 3
+old   1: INSERT INTO PRODUCT VALUES(&PID,'&PNAME',&PRICE,'&WAR',&CID)
+new   1: INSERT INTO PRODUCT VALUES(3,'WASHING MACHINE',15000,'3 YEAR',3)
+
+1 row created.
+
+SQL> /
+Enter value for pid: 4
+Enter value for pname: COMPUTER
+Enter value for price: 40000
+Enter value for war: 1 YEAR
+Enter value for cid: 2
+old   1: INSERT INTO PRODUCT VALUES(&PID,'&PNAME',&PRICE,'&WAR',&CID)
+new   1: INSERT INTO PRODUCT VALUES(4,'COMPUTER',40000,'1 YEAR',2)
+
+1 row created.
+
+SQL> SELECT * FROM COMP;
+
+       CID CNAME
+---------- ----------
+	 1 Sony
+	 2 Samsung
+	 3 Apple
+	 4 LG
+	 5 LG
+	 6 LG
+
+6 rows selected.
+
+SQL> DDELETE FROM COMP WHERE CID IN(5,6);
+SP2-0734: unknown command beginning "DDELETE FR..." - rest of line ignored.
+SQL> DELETE FROM COMP WHERE CID IN(5,6);
+
+2 rows deleted.
+
+SQL> ALTER TABLE COMP
+  2  ADD CONSTRAINT COMP_CID_PK PRIMARY KEY(CID);
+
+Table altered.
+
+SQL> ALTER TABLE PRODUCT
+  2  ADD CONSTRAINT PRO_CID_FK FOREIGN KEY(CID) REFERENCES COMP(CID);_
+  3  ADD CONSTRAINT PRO_CID_FK FOREIGN KEY(CID) REFERENCES COMP(CID);_
+  4  
+SQL> 
+SQL> ALTER TABLE PRODUCT
+  2  ADD CONSTRAINT PRO_CID_FK FOREIGN KEY(CID) REFERENCES COMP(CID);_
+  3  ADD CONSTRAINT PRO_CID_FK FOREIGN KEY(CID) REFERENCES COMP(CID);_
+  4  
+SQL> 
+SQL> COMMIT
+  2  COMMIT;
+COMMIT
+*
+ERROR at line 2:
+ORA-02185: a token other than WORK follows COMMIT
+
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> ALTER TABLE PRODUCT
+  2  ADD CONSTRAINT PRO_CID_FK FOREIGN KEY(CID) REFERENCES COMP(CID);_
+  3  ADD CONSTRAINT PRO_CID_FK FOREIGN KEY(CID) REFERENCES COMP(CID);_
+  4  
+SQL> 
+SQL> ALTER TABLE PRODUCT
+  2  ADD CONSTRAINT PRO_CID_FK FOREIGN KEY(CID) REFERENCES COMP(CID);
+
+Table altered.
+
+SQL> CR
+SP2-0042: unknown command "CR" - rest of line ignored.
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> CREATE TABLE ACT_DETAILS(ACC_NO NUMBER CONSTRAINT AC_NO_PK PRIMARY KEY, AC_DETAILS VARCHAR(20)
+  2  ;
+
+*
+ERROR at line 2:
+ORA-00907: missing right parenthesis
+
+
+SQL> CREATE TABLE ACT_DETAILS(ACC_NO NUMBER CONSTRAINT AC_NO_PK PRIMARY KEY, AC_DETAILS VARCHAR(20));
+
+Table created.
+
+SQL> CREATE TABLE CUST_DETAILS(CID NUMBER CONSTRAINT CUST_CID_PK PRIMARY KEY,CNAME VARCHAR(20),CMOBILE NUMBER,CGENDER CHAR(1),CCITY VARCHAR2(20));
+CREATE TABLE CUST_DETAILS(CID NUMBER CONSTRAINT CUST_CID_PK PRIMARY KEY,CNAME VARCHAR(20),CMOBILE NUMBER,CGENDER CHAR(1),CCITY VARCHAR2(20))
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+SQL> CREATE TABLE CUST_DETAIL(CID NUMBER CONSTRAINT CUST_CID_PK PRIMARY KEY,CNAME VARCHAR(20),CMOBILE NUMBER,CGENDER CHAR(1),CCITY VARCHAR2(20));
+
+Table created.
+
+SQL> CREATE TABLE CUST_AC_DETAIL(ACC_NO NUMBER CONSTRAINT ACD_ACNO_PK PRIMARY KEY,ACC_OPEN_DATE DATE,ACC_BAL NUMBER,CID NUMBER,ACC_NAME VARCHAR2(20));
+
+Table created.
+
+SQL> ALTER TABLE ACT_DETAILS
+  2  RENAME COLUMN ACC_NO TO ACC_NAME;
+
+Table altered.
+
+SQL> ALTER TABLE ACT_DETAILS
+  2  MODIFY ACC_NAME VARCHAR2(20);
+
+Table altered.
+
+SQL> ALTER TABLE CUST_AC_DETAIL
+  2  ADD CONSTRAINT CUST_CID_FK FOREIGN KEY(CID) REFERENCES CUST_DETAIL(CID);
+
+Table altered.
+
+SQL> ALTER TABLE CUST_AC_DETAIL
+  2  ADD CONSTRAINT CUST_CID_FK FOREIGN KEY(ACC_NAME) REFERENCES ACT_DETAILS(ACC_NAME);
+ADD CONSTRAINT CUST_CID_FK FOREIGN KEY(ACC_NAME) REFERENCES ACT_DETAILS(ACC_NAME)
+               *
+ERROR at line 2:
+ORA-02264: name already used by an existing constraint
+
+
+SQL> ALTER TABLE CUST_AC_DETAIL
+  2  ADD CONSTRAINT CUST_NAME_FK FOREIGN KEY(ACC_NAME) REFERENCES ACT_DETAILS(ACC_NAME);
+
+Table altered.
+
+SQL> INSERT INTO CUST_AC_DETAIL VALUES(&ACC_NO,'&ACC_OPEN_DATE',&ACC_BAL,&CID,'&ACC_NAME');
+Enter value for acc_no: 1010101010
+Enter value for acc_open_date: 10-SEP-16
+Enter value for acc_bal: 500000
+Enter value for cid: 1
+Enter value for acc_name: SAVING
+old   1: INSERT INTO CUST_AC_DETAIL VALUES(&ACC_NO,'&ACC_OPEN_DATE',&ACC_BAL,&CID,'&ACC_NAME')
+new   1: INSERT INTO CUST_AC_DETAIL VALUES(1010101010,'10-SEP-16',500000,1,'SAVING')
+INSERT INTO CUST_AC_DETAIL VALUES(1010101010,'10-SEP-16',500000,1,'SAVING')
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (DBDA22.CUST_NAME_FK) violated - parent key not found
+
+
+SQL> INSERT INTO ACT_DETAILS VALUES('SAVING',1);
+
+1 row created.
+
+SQL> INSERT INTO ACT_DETAILS VALUES('CURRENT',2);
+
+1 row created.
+
+SQL> INSERT INTO ACT_DETAILS VALUES('FD',3);
+
+1 row created.
+
+SQL> INSERT INTO ACT_DETAILS VALUES('LOAN',4);
+
+1 row created.
+
+SQL> INSERT INTO ACT_DETAILS VALUES(1,'SAURABH',1234567890,'M','PUNE');
+INSERT INTO ACT_DETAILS VALUES(1,'SAURABH',1234567890,'M','PUNE')
+            *
+ERROR at line 1:
+ORA-00913: too many values
+
+
+SQL> INSERT INTO CUST_DETAIL VALUES(1,'SAURABH',1234567890,'M','PUNE');
+
+1 row created.
+
+SQL> INSERT INTO CUST_DETAIL VALUES(2,'PRASHANT',9874561230,'M','SATARA');
+
+1 row created.
+
+SQL> INSERT INTO CUST_DETAIL VALUES(3,'ANKIT',9874562230,'M','MUMBAI');
+
+1 row created.
+
+SQL> INSERT INTO CUST_DETAIL VALUES(4,'VISHAL',9874560230,'M','MUMBAI');
+
+1 row created.
+
+SQL> INSERT INTO CUST_AC_DETAIL VALUES(1,'10-SEP-17',500000,1,'SAVING');
+
+1 row created.
+
+SQL> INSERT INTO CUST_AC_DETAIL VALUES(2,'11-MAY-15',1000000,2,'FD');
+
+1 row created.
+
+SQL> INSERT INTO CUST_AC_DETAIL VALUES(3,'17-JUN-00',900000,3,'LOAN');
+
+1 row created.
+
+SQL> INSERT INTO CUST_AC_DETAIL VALUES(4,'21-JAN-10',800000,4,'CURRENT');
+
+1 row created.
+
+SQL> COMMIT;
+
+Commit complete.
+
+

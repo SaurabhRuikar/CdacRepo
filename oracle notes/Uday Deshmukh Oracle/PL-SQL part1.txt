@@ -1,0 +1,115 @@
+**********************Reverse of a number*******************
+
+declare
+num number;
+rev number:=0;
+rem number;
+begin
+num:=&num;
+while(num!=0) loop
+rem:=mod(num,10);
+rev:=(rev * 10)+rem;
+num:=trunc(num/10);
+end loop;
+dbms_output.put_line('Reverse is:'|| rev);
+end;
+
+
+o/p:-
+Enter value for num: 1234
+old   6: num:=&num;
+new   6: num:=1234;
+Reverse is:4321
+
+PL/SQL procedure successfully completed.
+
+***********************************************************
+///////////  If we dont write trunc then  ////////////////
+declare
+num number;
+rev number:=0;
+rem number;
+begin
+num:=&num;
+while(num!=0) loop
+rem:=mod(num,10);
+rev:=(rev * 10)+rem;
+num:=(num/10);
+end loop;
+dbms_output.put_line('Reverse is:'|| rev);
+end;
+
+o/p:-
+Enter value for num: 123
+old   6: num:=&num;
+new   6: num:=123;
+Reverse is:~
+*******************************************************************
+***********even no and odd number***********
+declare 
+num number(3);
+begin
+num :=&num;
+if( mod (num,2)=0)then
+dbms_output.put_line( num || 'is even no');
+else
+dbms_output.put_line( num || 'is not even');
+end if;
+end;
+_
+ /
+Enter value for num: 25
+old   4: num :=&num;
+new   4: num :=25;
+25 is not even
+
+PL/SQL procedure successfully completed.
+
+***************************************************
+******user defined composite variable*****************
+///table name is e
+set serveroutput on
+declare
+type t_rec is record
+(
+veno e.eno%type,
+vename e.ename%type,
+vjob e.job%type
+);
+
+ u_var t_rec;
+begin
+select eno,ename,job into u_var  from e where eno = 1;
+dbms_output.put_line('emp no:-'|| u_var.veno);
+dbms_output.put_line('emp name:-'|| u_var.vename);
+dbms_output.put_line('emp job:-'|| u_var.vjob);
+end;
+
+output:------
+emp no:-1
+emp name:-pratz
+emp job:-Manager
+
+PL/SQL procedure successfully completed.
+
+******************************************************************************
+****table based composite variable*************
+set serveroutput on
+declare
+emprec e%rowtype;
+begin
+select * into emprec from
+e where eno =2;
+dbms_output.put_line('emp no:-'|| emprec.eno);
+dbms_output.put_line('emp name:-'|| emprec.ename);
+dbms_output.put_line('emp job:-'|| emprec.job);
+dbms_output.put_line('emp job:-'|| emprec.sal);
+end;
+
+emp no:-2
+emp name:-swarali
+emp job:-HR
+emp job:-5007
+
+PL/SQL procedure successfully completed.
+********************************************************************************************

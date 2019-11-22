@@ -1,0 +1,42 @@
+SQL Syllabus:
+----------------------------------------------------------------------
+- DDL
+- DML
+- TCL
+- DCL
+- Single Row Function(character/numeric/date)
+- nvl, nvl2
+- Constraints
+- All Clauses(distinct/from/where/group by/having/select/order by)
+- Aggregate Function(max/min/avg/sum/count)
+- Analytical Function(rank/dense_rank/row_number)
+- Views / I
+4nline Views
+- Pseudo Columns(rowid/rownum)
+- GTT(session/transaction)
+- Squence(curr_val,next_val)
+- Index
+- explain Plan
+- Transaction(ACID property)
+- Locking Concepts(Share/exclusive/dead)
+- Set Operations(union/union all/intersect/minus)
+- Joins(Cross/Equi/Inner/Natural/Self/Outer(left/right/full))
+- SubQuery(single row/multi row)
+- Corelated Query
+- Normalization
+
+-------------------------------------------------------------------
+- Remove Duplicate Records from table.
+- calculate 1st,2nd,3rd..... Maximum salary
+- calculate 1st,2nd,3rd..... Minimum salary
+- Repalce all null values with zero(0).
+- Repalce all not null values with 'No Values'.
+- Query on group function and analytical function.
+- Query on self join.
+- Copy a structure of one table into another table.
+ Ans: 	create table new_tab
+	as
+	select * from old _tab where 1=2;
+-------------------------------------------------------------------
+
+-----------------------------------------------------------------------

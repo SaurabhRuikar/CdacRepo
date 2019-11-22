@@ -1,0 +1,1811 @@
+SQL> select  max(DCOST) from software;
+
+MAX(DCOST)
+----------
+      1200
+
+SQL> select * from software;
+
+PNAME	   TITLE      DEVIN	      SCOST	 DCOST	     SOLD
+---------- ---------- ---------- ---------- ---------- ----------
+Neeraj	   gtrjngtr   Oracle	       5600	  1200	     3400
+akshay	   gthgt      Java	       4500	  1200	      450
+gogo	   thtyh      Oracle	       4400	  1200	      670
+grjkjnrg   gnrgring   Java	       5600	  1200	      980
+gth	   gtyfgf     Oracle	       5600	  1200	      410
+
+SQL> select  max(DCOST) from software;
+
+MAX(DCOST)
+----------
+      1200
+
+SQL> select  max(sold) from software;
+
+ MAX(SOLD)
+----------
+      3400
+
+SQL> select  max(sold) as software.pname from software;
+select	max(sold) as software.pname from software
+                             *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected
+
+
+SQL> select  count(*) from software;
+
+  COUNT(*)
+----------
+	 5
+
+SQL> select  max(*) from software;
+select	max(*) from software
+            *
+ERROR at line 1:
+ORA-00936: missing expression
+
+
+SQL> select  max(sold)  from software
+  2  group by pname;
+
+ MAX(SOLD)
+----------
+       410
+      3400
+       450
+       670
+       980
+
+SQL> select  max(sold)  from software
+  2  group by devin;
+
+ MAX(SOLD)
+----------
+      3400
+       980
+
+SQL> select  max(sold)  from software;
+
+ MAX(SOLD)
+----------
+      3400
+
+SQL> select  max(sold)  from software
+  2  group by devin;
+
+ MAX(SOLD)
+----------
+      3400
+       980
+
+SQL> select  count(*),max(sold)  from software
+  2  group by devin;
+
+  COUNT(*)  MAX(SOLD)
+---------- ----------
+	 3	 3400
+	 2	  980
+
+SQL> select  pname from(select max(sold) from software)
+  2  where 1=2;
+select	pname from(select max(sold) from software)
+        *
+ERROR at line 1:
+ORA-00904: "PNAME": invalid identifier
+
+
+SQL> select  pname from software where sold in(select max(sold) from software);
+
+PNAME
+----------
+Neeraj
+
+SQL> select  pname as sreemant from software where sold in(select max(sold) from software);
+
+SREEMANT
+----------
+Neeraj
+
+SQL> select  pname,dcost count(*) from software
+  2  group by pname,
+  3  order by dcost;
+select	pname,dcost count(*) from software
+                         *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected
+
+
+SQL> select  pname,dcost, count(*) from software
+  2  group by pname,
+  3  order by dcost;
+order by dcost
+*
+ERROR at line 3:
+ORA-00936: missing expression
+
+
+SQL> select  count(*) from software
+  2  group by pname,
+  3  order by dcost;
+order by dcost
+*
+ERROR at line 3:
+ORA-00936: missing expression
+
+
+SQL> select  avg(dsold),sum(dsold),count(*) from software
+  2  order by
+  3  dsold;
+dsold
+*
+ERROR at line 3:
+ORA-00904: "DSOLD": invalid identifier
+
+
+SQL> select  avg(dsold),sum(dsold),count(*) from software;
+select	avg(dsold),sum(dsold),count(*) from software
+                       *
+ERROR at line 1:
+ORA-00904: "DSOLD": invalid identifier
+
+
+SQL> select  avg(sold),sum(sold),count(*) from software;
+
+ AVG(SOLD)  SUM(SOLD)	COUNT(*)
+---------- ---------- ----------
+      1182	 5910	       5
+
+SQL> select  pname,max(sold),count(*) from software
+  2  order by pname;
+select	pname,max(sold),count(*) from software
+        *
+ERROR at line 1:
+ORA-00937: not a single-group group function
+
+
+SQL> select  pname,max(sold),count(*) from software
+  2  group by pname;
+
+PNAME	    MAX(SOLD)	COUNT(*)
+---------- ---------- ----------
+gth		  410	       1
+Neeraj		 3400	       1
+akshay		  450	       1
+gogo		  670	       1
+grjkjnrg	  980	       1
+
+SQL> select * from emp;
+
+no rows selected
+
+SQL> select * from emp1;
+
+       ENO ENAME			    SAL JOB
+---------- ------------------------- ---------- -------------------------
+   DEPT_NO	 COMM HIREDATE	MGR
+---------- ---------- --------- ----------
+       100 Neeraj			  10000 c
+      1200	 1400 05-MAR-11
+
+       101 prathamesh		     1000000000 Manager
+      3450	 1345 21-APR-15 100
+
+       102 Gogo 		     1000000000 CA
+      3478	 1236 21-APR-19 100
+
+
+       ENO ENAME			    SAL JOB
+---------- ------------------------- ---------- -------------------------
+   DEPT_NO	 COMM HIREDATE	MGR
+---------- ---------- --------- ----------
+       103 Tanmay			    120 chaprasi
+      1200	 4326 01-JUN-00 100
+
+
+SQL> set pages 145
+SQL> set lines 145
+SQL> select * from emp1;
+
+       ENO ENAME			    SAL JOB			     DEPT_NO	   COMM HIREDATE  MGR
+---------- ------------------------- ---------- ------------------------- ---------- ---------- --------- ----------
+       100 Neeraj			  10000 c				1200	   1400 05-MAR-11
+       101 prathamesh		     1000000000 Manager 			3450	   1345 21-APR-15 100
+       102 Gogo 		     1000000000 CA				3478	   1236 21-APR-19 100
+       103 Tanmay			    120 chaprasi			1200	   4326 01-JUN-00 100
+
+SQL> alter table emp1 add gender char(1);
+
+Table altered.
+
+SQL> update table emp1
+  2  set gender='m'
+  3  where 1=1;
+update table emp1
+       *
+ERROR at line 1:
+ORA-00903: invalid table name
+
+
+SQL> update emp1
+  2  set gender='m'
+  3  where 1=1;
+
+4 rows updated.
+
+SQL> select *from employee1;
+
+     EMPID ENAME		JOB			MAGANER HIREDATE       SALAY  COMMISION      DEPNO
+---------- -------------------- -------------------- ---------- --------- ---------- ---------- ----------
+      7369 smith		clerk			   7902 17-DEC-80	1300			20
+      7499 allen		salsman 		   7698 20-FEB-81	2340	    300 	30
+      7521 ward 		salsman 		   7698 22-FEB-81	1885	    500 	30
+      7566 jones		manager 		   7839 02-MAR-81	3175			20
+      7654 martin		salsman 		   7698 28-SEP-81	1885	   1400 	30
+      7698 blake		manager 		   7839 01-MAY-81	3050			30
+      7782 clark		manager 		   7839 09-JUN-81	2650			10
+      7788 scott		analyst 		   7566 19-APR-87	4992			20
+      7839 king 		president			17-NOV-81	6760			10
+      7844 turner		salsman 		   7600 08-SEP-81	2210	      0 	30
+      7876 admas		clerk			   7788 23-MAY-87	1690			20
+      7879 james		clerk			   7698 03-DEC-87	1495			30
+      7902 ford 		analyst 		   7566 03-DEC-81	4992			20
+
+13 rows selected.
+
+SQL> alter table employee1 add GENDER number;
+
+Table altered.
+
+SQL> select *from employee1;
+
+     EMPID ENAME		JOB			MAGANER HIREDATE       SALAY  COMMISION      DEPNO     GENDER
+---------- -------------------- -------------------- ---------- --------- ---------- ---------- ---------- ----------
+      7369 smith		clerk			   7902 17-DEC-80	1300			20
+      7499 allen		salsman 		   7698 20-FEB-81	2340	    300 	30
+      7521 ward 		salsman 		   7698 22-FEB-81	1885	    500 	30
+      7566 jones		manager 		   7839 02-MAR-81	3175			20
+      7654 martin		salsman 		   7698 28-SEP-81	1885	   1400 	30
+      7698 blake		manager 		   7839 01-MAY-81	3050			30
+      7782 clark		manager 		   7839 09-JUN-81	2650			10
+      7788 scott		analyst 		   7566 19-APR-87	4992			20
+      7839 king 		president			17-NOV-81	6760			10
+      7844 turner		salsman 		   7600 08-SEP-81	2210	      0 	30
+      7876 admas		clerk			   7788 23-MAY-87	1690			20
+      7879 james		clerk			   7698 03-DEC-87	1495			30
+      7902 ford 		analyst 		   7566 03-DEC-81	4992			20
+
+13 rows selected.
+
+SQL> update EMPLOYEE1 SET GENDER='M' WHERE 1=1;
+update EMPLOYEE1 SET GENDER='M' WHERE 1=1
+                            *
+ERROR at line 1:
+ORA-01722: invalid number
+
+
+SQL> ALTER TABLE EMPLOYEE1
+  2  MODIFY GENDER CHAR(1);
+
+Table altered.
+
+SQL> select *from employee1;
+
+     EMPID ENAME		JOB			MAGANER HIREDATE       SALAY  COMMISION      DEPNO G
+---------- -------------------- -------------------- ---------- --------- ---------- ---------- ---------- -
+      7369 smith		clerk			   7902 17-DEC-80	1300			20
+      7499 allen		salsman 		   7698 20-FEB-81	2340	    300 	30
+      7521 ward 		salsman 		   7698 22-FEB-81	1885	    500 	30
+      7566 jones		manager 		   7839 02-MAR-81	3175			20
+      7654 martin		salsman 		   7698 28-SEP-81	1885	   1400 	30
+      7698 blake		manager 		   7839 01-MAY-81	3050			30
+      7782 clark		manager 		   7839 09-JUN-81	2650			10
+      7788 scott		analyst 		   7566 19-APR-87	4992			20
+      7839 king 		president			17-NOV-81	6760			10
+      7844 turner		salsman 		   7600 08-SEP-81	2210	      0 	30
+      7876 admas		clerk			   7788 23-MAY-87	1690			20
+      7879 james		clerk			   7698 03-DEC-87	1495			30
+      7902 ford 		analyst 		   7566 03-DEC-81	4992			20
+
+13 rows selected.
+
+SQL> update EMPLOYEE1 SET GENDER='M' WHERE 1=1;
+
+13 rows updated.
+
+SQL> select *from employee1;
+
+     EMPID ENAME		JOB			MAGANER HIREDATE       SALAY  COMMISION      DEPNO G
+---------- -------------------- -------------------- ---------- --------- ---------- ---------- ---------- -
+      7369 smith		clerk			   7902 17-DEC-80	1300			20 M
+      7499 allen		salsman 		   7698 20-FEB-81	2340	    300 	30 M
+      7521 ward 		salsman 		   7698 22-FEB-81	1885	    500 	30 M
+      7566 jones		manager 		   7839 02-MAR-81	3175			20 M
+      7654 martin		salsman 		   7698 28-SEP-81	1885	   1400 	30 M
+      7698 blake		manager 		   7839 01-MAY-81	3050			30 M
+      7782 clark		manager 		   7839 09-JUN-81	2650			10 M
+      7788 scott		analyst 		   7566 19-APR-87	4992			20 M
+      7839 king 		president			17-NOV-81	6760			10 M
+      7844 turner		salsman 		   7600 08-SEP-81	2210	      0 	30 M
+      7876 admas		clerk			   7788 23-MAY-87	1690			20 M
+      7879 james		clerk			   7698 03-DEC-87	1495			30 M
+      7902 ford 		analyst 		   7566 03-DEC-81	4992			20 M
+
+13 rows selected.
+
+SQL> update EMPLOYEE1
+  2  SET GENDER='F' WHERE ENAME IN ('allen','jones','turner,'james','scott');
+ERROR:
+ORA-01756: quoted string not properly terminated
+
+
+SQL> update EMPLOYEE1
+  2  SET GENDER='F' WHERE ENAME IN('allen','jones','turner,'james','scott');
+ERROR:
+ORA-01756: quoted string not properly terminated
+
+
+SQL> update EMPLOYEE1
+  2  SET GENDER='F'WHERE ENAME IN('allen','jones','turner,'james','scott');
+ERROR:
+ORA-01756: quoted string not properly terminated
+
+
+SQL> update EMPLOYEE1
+  2  SET GENDER='F' WHERE ENAME IN('allen','jones','turner,'james','scott');
+ERROR:
+ORA-01756: quoted string not properly terminated
+
+
+SQL> update EMPLOYEE1
+  2  SET GENDER='F' WHERE ENAME IN('allen','jones','turner','james','scott');
+
+5 rows updated.
+
+SQL> select *from employee1;
+
+     EMPID ENAME		JOB			MAGANER HIREDATE       SALAY  COMMISION      DEPNO G
+---------- -------------------- -------------------- ---------- --------- ---------- ---------- ---------- -
+      7369 smith		clerk			   7902 17-DEC-80	1300			20 M
+      7499 allen		salsman 		   7698 20-FEB-81	2340	    300 	30 F
+      7521 ward 		salsman 		   7698 22-FEB-81	1885	    500 	30 M
+      7566 jones		manager 		   7839 02-MAR-81	3175			20 F
+      7654 martin		salsman 		   7698 28-SEP-81	1885	   1400 	30 M
+      7698 blake		manager 		   7839 01-MAY-81	3050			30 M
+      7782 clark		manager 		   7839 09-JUN-81	2650			10 M
+      7788 scott		analyst 		   7566 19-APR-87	4992			20 F
+      7839 king 		president			17-NOV-81	6760			10 M
+      7844 turner		salsman 		   7600 08-SEP-81	2210	      0 	30 F
+      7876 admas		clerk			   7788 23-MAY-87	1690			20 M
+      7879 james		clerk			   7698 03-DEC-87	1495			30 F
+      7902 ford 		analyst 		   7566 03-DEC-81	4992			20 M
+
+13 rows selected.
+
+SQL> SELECT AVG(SALAY) FROM EMPLOYEE1 GROUP BY DEPNO;
+
+AVG(SALAY)
+----------
+2144.16667
+    3229.8
+      4705
+
+SQL> SELECT DEPNO,SUM(SALAY) FROM EMPLOYEE1 GROUP BY DEPNO;
+
+     DEPNO SUM(SALAY)
+---------- ----------
+	30	12865
+	20	16149
+	10	 9410
+
+SQL> SELECT DEPNO,SUM(SALAY) FROM EMPLOYEE1 GROUP BY DEPNO ORDER BY DEPNO;
+
+     DEPNO SUM(SALAY)
+---------- ----------
+	10	 9410
+	20	16149
+	30	12865
+
+SQL> SELECT DEPNO,SUM(SALAY) FROM EMPLOYEE1 GROUP BY DEPNO HAVING SALAY > (SELECT SUM(SALAY) FROM EMPLOYEE1);
+SELECT DEPNO,SUM(SALAY) FROM EMPLOYEE1 GROUP BY DEPNO HAVING SALAY > (SELECT SUM(SALAY) FROM EMPLOYEE1)
+                                                             *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression
+
+
+SQL> SELECT SUM(SALAY) FROM EMPLOYEE1 GROUP BY DEPNO HAVING SALAY > (SELECT SUM(SALAY) FROM EMPLOYEE1);
+SELECT SUM(SALAY) FROM EMPLOYEE1 GROUP BY DEPNO HAVING SALAY > (SELECT SUM(SALAY) FROM EMPLOYEE1)
+                                                       *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression
+
+
+SQL> SELECT SUM(SALAY) FROM EMPLOYEE1 HAVING SALAY > (SELECT SUM(SALAY) FROM EMPLOYEE1);
+SELECT SUM(SALAY) FROM EMPLOYEE1 HAVING SALAY > (SELECT SUM(SALAY) FROM EMPLOYEE1)
+                                        *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression
+
+
+SQL> select COUNT(*) from employee1;
+
+  COUNT(*)
+----------
+	13
+
+SQL> select COUNT(*) from employee1 GROUP BY DEPNO;
+
+  COUNT(*)
+----------
+	 6
+	 5
+	 2
+
+SQL> select COUNT(*) from employee1 GROUP BY GENDER;
+
+  COUNT(*)
+----------
+	 8
+	 5
+
+SQL> select GENDER,COUNT(*) from employee1 GROUP BY GENDER;
+
+G   COUNT(*)
+- ----------
+M	   8
+F	   5
+
+SQL> select DEPNO,COUNT(*) from employee1 GROUP BY DEPNO;
+
+     DEPNO   COUNT(*)
+---------- ----------
+	30	    6
+	20	    5
+	10	    2
+
+SQL> select DEPNO,COUNT(*) from employee1 GROUP BY DEPNO,GENDER;
+
+     DEPNO   COUNT(*)
+---------- ----------
+	30	    3
+	20	    2
+	10	    2
+	20	    3
+	30	    3
+
+SQL> select DEPNO,COUNT(*) from employee1 GROUP BY DEPNO,GENDER ORDER BY DEPNO;
+
+     DEPNO   COUNT(*)
+---------- ----------
+	10	    2
+	20	    2
+	20	    3
+	30	    3
+	30	    3
+
+SQL> 
+SQL> select COUNT(*) from employee1 GROUP BY TO_DATE(HIREDATE,'YY');
+select COUNT(*) from employee1 GROUP BY TO_DATE(HIREDATE,'YY')
+                                                *
+ERROR at line 1:
+ORA-01830: date format picture ends before converting entire input string
+
+
+SQL> select COUNT(*) from employee1 GROUP BY HIREDATE);
+select COUNT(*) from employee1 GROUP BY HIREDATE)
+                                                *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended
+
+
+SQL> select COUNT(*) from employee1 GROUP BY HIREDATE;
+
+  COUNT(*)
+----------
+	 1
+	 1
+	 1
+	 1
+	 1
+	 1
+	 1
+	 1
+	 1
+	 1
+	 1
+	 1
+	 1
+
+13 rows selected.
+
+SQL> select COUNT(*) from employee1 GROUP BY TO_CHAR(HIREDATE,'YY');
+
+  COUNT(*)
+----------
+	 3
+	 9
+	 1
+
+SQL> select COUNT(*) from employee1 GROUP BY TO_CHAR(HIREDATE,'MM');
+
+  COUNT(*)
+----------
+	 2
+	 1
+	 3
+	 1
+	 2
+	 1
+	 2
+	 1
+
+8 rows selected.
+
+SQL> select COUNT(*) from employee1 GROUP BY TO_CHAR(HIREDATE,'YY');
+
+  COUNT(*)
+----------
+	 3
+	 9
+	 1
+
+SQL> select TO_CHAR(HIREDATE,'YY') AS YEAR COUNT(*) from employee1 GROUP BY TO_CHAR(HIREDATE,'YY');
+select TO_CHAR(HIREDATE,'YY') AS YEAR COUNT(*) from employee1 GROUP BY TO_CHAR(HIREDATE,'YY')
+                                      *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected
+
+
+SQL> select TO_CHAR(HIREDATE,'YY') AS YEAR,COUNT(*) from employee1 GROUP BY TO_CHAR(HIREDATE,'YY');
+
+YE   COUNT(*)
+-- ----------
+87	    3
+81	    9
+80	    1
+
+SQL> SELECT SUM(SALAY) FROM EMPLOYEE1 HAVING SUM(SALAY)>1000;
+
+SUM(SALAY)
+----------
+     38424
+
+SQL> SELECT AVG(SALAY) FROM EMPLOYEE1 HAVING AVG(SALAY)>10000;
+
+no rows selected
+
+SQL> SELECT AVG(SALAY) FROM EMPLOYEE1 HAVING AVG(SALAY)>1000;
+
+AVG(SALAY)
+----------
+2955.69231
+
+SQL> SELECT DEPNO,MAX(SALAY),COUNT(*) FROM EMPLOYEE1 GROUP BY DEPNO HAVING MAX(SALAY)>1000;
+
+     DEPNO MAX(SALAY)	COUNT(*)
+---------- ---------- ----------
+	30	 3050	       6
+	20	 4992	       5
+	10	 6760	       2
+
+SQL> SELECT DEPNO,MAX(SALAY),COUNT(*) FROM EMPLOYEE1 GROUP BY DEPNO HAVING MAX(SALAY)>1000 ORDER BY DEPNO;
+
+     DEPNO MAX(SALAY)	COUNT(*)
+---------- ---------- ----------
+	10	 6760	       2
+	20	 4992	       5
+	30	 3050	       6
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> SELECT COUNT(*) FROM EMPLOYEE1 GROUP BY JOB;
+
+  COUNT(*)
+----------
+	 4
+	 3
+	 1
+	 3
+	 2
+
+SQL> SELECT COUNT(*) FROM EMPLOYEE1 GROUP BY JOB,GENDER;
+
+  COUNT(*)
+----------
+	 1
+	 1
+	 2
+	 1
+	 1
+	 2
+	 1
+	 2
+	 2
+
+9 rows selected.
+
+SQL> SELECT JOB,COUNT(*) FROM EMPLOYEE1 GROUP BY JOB;
+
+JOB		       COUNT(*)
+-------------------- ----------
+salsman 		      4
+clerk			      3
+president		      1
+manager 		      3
+analyst 		      2
+
+SQL> SELECT COUNT(*) FROM EMPLOYEE1 GROUP BY JOB,GENDER;
+
+  COUNT(*)
+----------
+	 1
+	 1
+	 2
+	 1
+	 1
+	 2
+	 1
+	 2
+	 2
+
+9 rows selected.
+
+SQL> SELECT JOB,COUNT(*) FROM EMPLOYEE1 GROUP BY JOB,GENDER;
+
+JOB		       COUNT(*)
+-------------------- ----------
+clerk			      1
+analyst 		      1
+salsman 		      2
+manager 		      1
+president		      1
+clerk			      2
+analyst 		      1
+manager 		      2
+salsman 		      2
+
+9 rows selected.
+
+SQL> SELECT TO_CHAR(SYSDATE,'MON') AS MONTH, COUNT(*) FROM EMPLOYEE1 HAVING TO_CHAR(HIREDATE,'MON') IN (TO_CHAR(SYSDATE,'MON'));
+SELECT TO_CHAR(SYSDATE,'MON') AS MONTH, COUNT(*) FROM EMPLOYEE1 HAVING TO_CHAR(HIREDATE,'MON') IN (TO_CHAR(SYSDATE,'MON'))
+                                                                               *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression
+
+
+SQL> SELECT TO_CHAR(SYSDATE,'MON') AS MONTH, COUNT(*) FROM EMPLOYEE1 HAVING TO_CHAR(HIREDATE,'MON') =(TO_CHAR(SYSDATE,'MON'));
+SELECT TO_CHAR(SYSDATE,'MON') AS MONTH, COUNT(*) FROM EMPLOYEE1 HAVING TO_CHAR(HIREDATE,'MON') =(TO_CHAR(SYSDATE,'MON'))
+                                                                               *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression
+
+
+SQL> SELECT COUNT(*) GROUP BY TO_CHAR(HIREDATE,'MON');
+SELECT COUNT(*) GROUP BY TO_CHAR(HIREDATE,'MON')
+                *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected
+
+
+SQL> SELECT COUNT(*) FROM EMPLOYEE1 GROUP BY TO_CHAR(HIREDATE,'MON');
+
+  COUNT(*)
+----------
+	 3
+	 1
+	 1
+	 1
+	 2
+	 2
+	 1
+	 2
+
+8 rows selected.
+
+SQL> SELECT COUNT(*) FROM EMPLOYEE1 GROUP BY TO_CHAR(HIREDATE,'MON') HAVING TO_CHAR(HIREDATE,'MON') IN('SEP') ;
+
+  COUNT(*)
+----------
+	 2
+
+SQL> SELECT COUNT(*) FROM EMPLOYEE1 GROUP BY TO_CHAR(HIREDATE,'MON') HAVING TO_CHAR(HIREDATE,'MON') IN(TO_CHAR(SYSDATE,'MON'));
+
+  COUNT(*)
+----------
+	 2
+
+SQL> SELECT TO_CHAR(HIREDATE,'MON'),COUNT(*) FROM EMPLOYEE1 GROUP BY TO_CHAR(HIREDATE,'MON') HAVING TO_CHAR(HIREDATE,'MON') IN(TO_CHAR(SYSDATE,'MON'));
+
+TO_   COUNT(*)
+--- ----------
+SEP	     2
+
+SQL> SELECT MIN(SALAY),MAX(SALAY),AVG(SALAY) FROM EMPLOYEE1 GROUP BY GENDER;
+
+MIN(SALAY) MAX(SALAY) AVG(SALAY)
+---------- ---------- ----------
+      1300	 6760	  3026.5
+      1495	 4992	  2842.4
+
+SQL> SELECT GENDER,MIN(SALAY),MAX(SALAY),AVG(SALAY) FROM EMPLOYEE1 GROUP BY GENDER;
+
+G MIN(SALAY) MAX(SALAY) AVG(SALAY)
+- ---------- ---------- ----------
+M	1300	   6760     3026.5
+F	1495	   4992     2842.4
+
+SQL> SELECT DEPNO,MIN(SALAY),MAX(SALAY),SUM(SALAY) FROM EMPLOYEE1 GROUP BY DEPNO;
+
+     DEPNO MIN(SALAY) MAX(SALAY) SUM(SALAY)
+---------- ---------- ---------- ----------
+	30	 1495	    3050      12865
+	20	 1300	    4992      16149
+	10	 2650	    6760       9410
+
+SQL> SELECT DEPNO,MIN(SALAY),MAX(SALAY),SUM(SALAY) FROM EMPLOYEE1 GROUP BY DEPNO ORDER BY DEPNO;
+
+     DEPNO MIN(SALAY) MAX(SALAY) SUM(SALAY)
+---------- ---------- ---------- ----------
+	10	 2650	    6760       9410
+	20	 1300	    4992      16149
+	30	 1495	    3050      12865
+
+SQL> SELECT DEPNO,MIN(SALAY),MAX(SALAY),SUM(SALAY) FROM EMPLOYEE1 GROUP BY DEPNO,GENDER,JOB;
+
+     DEPNO MIN(SALAY) MAX(SALAY) SUM(SALAY)
+---------- ---------- ---------- ----------
+	20	 1300	    1690       2990
+	10	 6760	    6760       6760
+	30	 1495	    1495       1495
+	30	 3050	    3050       3050
+	20	 4992	    4992       4992
+	30	 1885	    1885       3770
+	10	 2650	    2650       2650
+	30	 2210	    2340       4550
+	20	 3175	    3175       3175
+	20	 4992	    4992       4992
+
+10 rows selected.
+
+SQL> SELECT DEPNO,GENDER,JOB,MIN(SALAY),MAX(SALAY),SUM(SALAY) FROM EMPLOYEE1 GROUP BY DEPNO,GENDER,JOB;
+
+     DEPNO G JOB		  MIN(SALAY) MAX(SALAY) SUM(SALAY)
+---------- - -------------------- ---------- ---------- ----------
+	20 M clerk			1300	   1690       2990
+	10 M president			6760	   6760       6760
+	30 F clerk			1495	   1495       1495
+	30 M manager			3050	   3050       3050
+	20 M analyst			4992	   4992       4992
+	30 M salsman			1885	   1885       3770
+	10 M manager			2650	   2650       2650
+	30 F salsman			2210	   2340       4550
+	20 F manager			3175	   3175       3175
+	20 F analyst			4992	   4992       4992
+
+10 rows selected.
+
+SQL> SELECT DEPNO,GENDER,JOB,MIN(SALAY),MAX(SALAY),SUM(SALAY) FROM EMPLOYEE1 GROUP BY DEPNO,GENDER,JOB ORDER BY DEPNO;
+
+     DEPNO G JOB		  MIN(SALAY) MAX(SALAY) SUM(SALAY)
+---------- - -------------------- ---------- ---------- ----------
+	10 M manager			2650	   2650       2650
+	10 M president			6760	   6760       6760
+	20 F analyst			4992	   4992       4992
+	20 F manager			3175	   3175       3175
+	20 M analyst			4992	   4992       4992
+	20 M clerk			1300	   1690       2990
+	30 F clerk			1495	   1495       1495
+	30 F salsman			2210	   2340       4550
+	30 M manager			3050	   3050       3050
+	30 M salsman			1885	   1885       3770
+
+10 rows selected.
+
+SQL> SELECT SUM(SALAY) FROM EMPLOYEE1;
+
+SUM(SALAY)
+----------
+     38424
+
+SQL> SELECT AVG(COMMISION) FROM EMPLOYEE1 GROUP BY JOB HAVING JOB IN('salsman');
+
+AVG(COMMISION)
+--------------
+	   550
+
+SQL> SELECT AVG(COMMISION) FROM EMPLOYEE1 where job='salsman';
+
+AVG(COMMISION)
+--------------
+	   550
+
+SQL> SELECT DEPNO,SUM(SALAY) FROM EMPLOYEE1 GROUP BY DEPNO ORDER BY DEPNO;
+
+     DEPNO SUM(SALAY)
+---------- ----------
+	10	 9410
+	20	16149
+	30	12865
+
+SQL> SELECT DEPNO,SUM(SALAY) AS BUDGET FROM EMPLOYEE1 GROUP BY DEPNO ORDER BY DEPNO;
+
+     DEPNO     BUDGET
+---------- ----------
+	10	 9410
+	20	16149
+	30	12865
+
+SQL> SELECT PNAME || 'HAS'|| ROUND(ABS(DOJ-SYSDATE)/365)||'YEARS OF EXPIREINCE' FROM SOFTWARE;
+SELECT PNAME || 'HAS'|| ROUND(ABS(DOJ-SYSDATE)/365)||'YEARS OF EXPIREINCE' FROM SOFTWARE
+                                  *
+ERROR at line 1:
+ORA-00904: "DOJ": invalid identifier
+
+
+SQL> SELECT * FROM SOFTWARE;
+
+PNAME	   TITLE      DEVIN	      SCOST	 DCOST	     SOLD
+---------- ---------- ---------- ---------- ---------- ----------
+Neeraj	   gtrjngtr   Oracle	       5600	  1200	     3400
+akshay	   gthgt      Java	       4500	  1200	      450
+gogo	   thtyh      Oracle	       4400	  1200	      670
+grjkjnrg   gnrgring   Java	       5600	  1200	      980
+gth	   gtyfgf     Oracle	       5600	  1200	      410
+
+SQL> SELECT * FROM PROGRAMMER;
+
+PNAME	   DOB	     DOJ       S PROF1	    PROF2	      SAL
+---------- --------- --------- - ---------- ---------- ----------
+gregreg    28-MAR-19 04-FEB-08 f C	    C++ 	   340000
+Neeraj	   12-FEB-90 17-MAR-11 m grgrtg     rrthgfg	    12000
+ngtgnig    31-MAR-99 05-FEB-10 f grtgrtg    rtgtgr	    34000
+grtthrgt   12-FEB-92 27-MAR-19 m Java	    Python	    12000
+grgrgt	   12-DEC-00 27-MAR-19 m C++	    C		    17000
+rgrtgggt   02-DEC-00 02-FEB-18 f Pascal     C		    56000
+refreifng  03-FEB-99 03-FEB-11 f Pascal     c++ 	   130000
+refreifng  03-FEB-99 03-FEB-11 f Pascal     c++ 	   130000
+
+8 rows selected.
+
+SQL> SELECT PNAME || 'HAS'|| ROUND(ABS(DOJ-SYSDATE)/365)||'YEARS OF EXPIREINCE' FROM PROGRAMMER;
+
+PNAME||'HAS'||ROUND(ABS(DOJ-SYSDATE)/365)||'YEARSOFEXPIREINCE'
+------------------------------------------------------------------------
+gregregHAS12YEARS OF EXPIREINCE
+NeerajHAS8YEARS OF EXPIREINCE
+ngtgnigHAS10YEARS OF EXPIREINCE
+grtthrgtHAS0YEARS OF EXPIREINCE
+grgrgtHAS0YEARS OF EXPIREINCE
+rgrtgggtHAS2YEARS OF EXPIREINCE
+refreifngHAS9YEARS OF EXPIREINCE
+refreifngHAS9YEARS OF EXPIREINCE
+
+8 rows selected.
+
+SQL> SELECT PNAME || ' HAS '|| ROUND(ABS(DOJ-SYSDATE)/365)||' YEARS OF EXPIREINCE ' FROM PROGRAMMER WHERE PNAME='Neeraj;
+ERROR:
+ORA-01756: quoted string not properly terminated
+
+
+SQL> SELECT PNAME || ' HAS '|| ROUND(ABS(DOJ-SYSDATE)/365)||' YEARS OF EXPIREINCE ' FROM PROGRAMMER WHERE PNAME='Neeraj';
+
+PNAME||'HAS'||ROUND(ABS(DOJ-SYSDATE)/365)||'YEARSOFEXPIREINCE'
+----------------------------------------------------------------------------
+Neeraj HAS 8 YEARS OF EXPIREINCE
+
+SQL> SELECT PNAME || ' HAS '|| ROUND(ABS(DOJ-SYSDATE)/365)||' YEARS OF EXPIREINCE. ' FROM PROGRAMMER WHERE PNAME='Neeraj';
+
+PNAME||'HAS'||ROUND(ABS(DOJ-SYSDATE)/365)||'YEARSOFEXPIREINCE.'
+-----------------------------------------------------------------------------
+Neeraj HAS 8 YEARS OF EXPIREINCE.
+
+SQL> SELECT PNAME || ' HAS '|| ROUND(ABS(DOJ-SYSDATE)/365)||' YEARS OF EXPIREINCE.' FROM PROGRAMMER WHERE PNAME='Neeraj';
+
+PNAME||'HAS'||ROUND(ABS(DOJ-SYSDATE)/365)||'YEARSOFEXPIREINCE.'
+----------------------------------------------------------------------------
+Neeraj HAS 8 YEARS OF EXPIREINCE.
+
+SQL> SELECT COUNT(*) FROM EMPLOYEE1 GROUP BY TO_CHAR(HIREDATE,'MON') HAVING TO_CHAR(HIREDATE,'MON') IN(TO_CHAR(SYSDATE,'MON'));
+
+  COUNT(*)
+----------
+	 2
+
+SQL> SELECT COUNT(*) FROM EMPLOYEE1 GROUP BY TO_CHAR(HIREDATE,'MON') HAVING TO_CHAR(HIREDATE,'MON') IN(TO_CHAR(SYSDATE,'MON'));
+
+  COUNT(*)
+----------
+	 2
+
+SQL> SELECT COUNT(*) FROM EMPLOYEE1 GROUP BY TO_CHAR(HIREDATE,'MON') where TO_CHAR(HIREDATE,'MON') IN(TO_CHAR(SYSDATE,'MON'));
+SELECT COUNT(*) FROM EMPLOYEE1 GROUP BY TO_CHAR(HIREDATE,'MON') where TO_CHAR(HIREDATE,'MON') IN(TO_CHAR(SYSDATE,'MON'))
+                                                                *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended
+
+
+SQL> SELECT COUNT(*) FROM EMPLOYEE1 GROUP BY TO_CHAR(HIREDATE,'MON') where TO_CHAR(HIREDATE,'MON') IN(TO_CHAR(SYSDATE,'MON'));
+SELECT COUNT(*) FROM EMPLOYEE1 GROUP BY TO_CHAR(HIREDATE,'MON') where TO_CHAR(HIREDATE,'MON') IN(TO_CHAR(SYSDATE,'MON'))
+                                                                *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended
+
+
+SQL> SELECT COUNT(*) FROM EMPLOYEE1 where TO_CHAR(HIREDATE,'MON') IN(TO_CHAR(SYSDATE,'MON'));
+
+  COUNT(*)
+----------
+	 2
+
+SQL> selet *from employee1;
+SP2-0734: unknown command beginning "selet *fro..." - rest of line ignored.
+SQL> select *from employee1;
+selet *from employee1;+3
++39
+
+[1]+  Stopped                 rlwrap /usr/lib/oracle/instantclient_18_3/sqlplus dbda22/dbda22@192.168.1.67/oracle
+(base) student@DBDA-L11:~$ sqlplus dbda22/dbda22@192.168.1.67/oracle
+
+SQL*Plus: Release 18.0.0.0.0 - Production on Wed Sep 4 14:26:10 2019
+Version 18.3.0.0.0
+
+Copyright (c) 1982, 2018, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 11g Enterprise Edition Release 11.1.0.6.0 - Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+
+SQL> select  *from employee;
+
+    EMP_ID EMP_NAME		   EMP_SAL DESIGNATION		G
+---------- -------------------- ---------- -------------------- -
+	 1 Rohan		     25000 manager		M
+	 2 jayesh		     30000 manager		M
+	 3 rahul		     33000 engineer		M
+	 4 pratham		     40000 MD			M
+	 5 aish 		     20000 HR			F
+
+SQL> select  *from employee1;
+
+     EMPID ENAME		JOB			MAGANER HIREDATE
+---------- -------------------- -------------------- ---------- ---------
+     SALAY  COMMISION	   DEPNO G
+---------- ---------- ---------- -
+      7369 smith		clerk			   7902 17-DEC-80
+      1300		      20 M
+
+      7499 allen		salsman 		   7698 20-FEB-81
+      2340	  300	      30 F
+
+      7521 ward 		salsman 		   7698 22-FEB-81
+      1885	  500	      30 M
+
+
+     EMPID ENAME		JOB			MAGANER HIREDATE
+---------- -------------------- -------------------- ---------- ---------
+     SALAY  COMMISION	   DEPNO G
+---------- ---------- ---------- -
+      7566 jones		manager 		   7839 02-MAR-81
+      3175		      20 F
+
+      7654 martin		salsman 		   7698 28-SEP-81
+      1885	 1400	      30 M
+
+      7698 blake		manager 		   7839 01-MAY-81
+      3050		      30 M
+
+
+     EMPID ENAME		JOB			MAGANER HIREDATE
+---------- -------------------- -------------------- ---------- ---------
+     SALAY  COMMISION	   DEPNO G
+---------- ---------- ---------- -
+      7782 clark		manager 		   7839 09-JUN-81
+      2650		      10 M
+
+      7788 scott		analyst 		   7566 19-APR-87
+      4992		      20 F
+
+      7839 king 		president			17-NOV-81
+      6760		      10 M
+
+
+     EMPID ENAME		JOB			MAGANER HIREDATE
+---------- -------------------- -------------------- ---------- ---------
+     SALAY  COMMISION	   DEPNO G
+---------- ---------- ---------- -
+      7844 turner		salsman 		   7600 08-SEP-81
+      2210	    0	      30 F
+
+      7876 admas		clerk			   7788 23-MAY-87
+      1690		      20 M
+
+      7879 james		clerk			   7698 03-DEC-87
+      1495		      30 F
+
+
+     EMPID ENAME		JOB			MAGANER HIREDATE
+---------- -------------------- -------------------- ---------- ---------
+     SALAY  COMMISION	   DEPNO G
+---------- ---------- ---------- -
+      7902 ford 		analyst 		   7566 03-DEC-81
+      4992		      20 M
+
+
+13 rows selected.
+
+SQL> set pages 145
+SQL> set lines 145;
+SQL> select  *from employee1;
+
+     EMPID ENAME		JOB			MAGANER HIREDATE       SALAY  COMMISION      DEPNO G
+---------- -------------------- -------------------- ---------- --------- ---------- ---------- ---------- -
+      7369 smith		clerk			   7902 17-DEC-80	1300			20 M
+      7499 allen		salsman 		   7698 20-FEB-81	2340	    300 	30 F
+      7521 ward 		salsman 		   7698 22-FEB-81	1885	    500 	30 M
+      7566 jones		manager 		   7839 02-MAR-81	3175			20 F
+      7654 martin		salsman 		   7698 28-SEP-81	1885	   1400 	30 M
+      7698 blake		manager 		   7839 01-MAY-81	3050			30 M
+      7782 clark		manager 		   7839 09-JUN-81	2650			10 M
+      7788 scott		analyst 		   7566 19-APR-87	4992			20 F
+      7839 king 		president			17-NOV-81	6760			10 M
+      7844 turner		salsman 		   7600 08-SEP-81	2210	      0 	30 F
+      7876 admas		clerk			   7788 23-MAY-87	1690			20 M
+      7879 james		clerk			   7698 03-DEC-87	1495			30 F
+      7902 ford 		analyst 		   7566 03-DEC-81	4992			20 M
+
+13 rows selected.
+
+SQL> CREATE TABLE DEPARTMENT1 
+  2  (DEPTNO NUMBER(2) CONSTRAINT DEPT_NO_NN NOT NULL,
+  3  DNAME VARCHAR2(14),
+  4  LOC VARCHAR2(13));
+
+Table created.
+
+SQL> select  *from DEPARTMENT1;
+
+no rows selected
+
+SQL> ALTER TABLE DEPARTMENT1
+  2  ADD CONSTRAINT DEPT_NO_PK PRIMARY KEY(DEPTNO);
+
+Table altered.
+
+SQL> ALTER TABLE EMPLOYEE1
+  2  AD CONSTRAINT EMP_DEPNO_FK FOREIGN KEY(DEPTNO) REFERENCES DEPARTMENT1(DEPTNO);
+AD CONSTRAINT EMP_DEPNO_FK FOREIGN KEY(DEPTNO) REFERENCES DEPARTMENT1(DEPTNO)
+*
+ERROR at line 2:
+ORA-01735: invalid ALTER TABLE option
+
+
+SQL> ALTER TABLE EMPLOYEE1
+  2  ADD CONSTRAINT EMP_DEPNO_FK FOREIGN KEY(DEPTNO) REFERENCES DEPARTMENT1(DEPTNO);
+ADD CONSTRAINT EMP_DEPNO_FK FOREIGN KEY(DEPTNO) REFERENCES DEPARTMENT1(DEPTNO)
+                                        *
+ERROR at line 2:
+ORA-00904: "DEPTNO": invalid identifier
+
+
+SQL> ALTER TABLE EMPLOYEE1
+  2  ADD CONSTRAINT EMP_DEPNO_FK FOREIGN KEY(DEPTNO) REFERENCES DEPARTMENT1(DEPNO);
+ADD CONSTRAINT EMP_DEPNO_FK FOREIGN KEY(DEPTNO) REFERENCES DEPARTMENT1(DEPNO)
+                                        *
+ERROR at line 2:
+ORA-00904: "DEPTNO": invalid identifier
+
+
+SQL> ALTER TABLE EMPLOYEE1
+  2  ADD CONSTRAINT EMP_DEPNO_FK FOREIGN KEY(DEPNO) REFERENCES DEPARTMENT1(DEPTNO);
+ADD CONSTRAINT EMP_DEPNO_FK FOREIGN KEY(DEPNO) REFERENCES DEPARTMENT1(DEPTNO)
+               *
+ERROR at line 2:
+ORA-02298: cannot validate (DBDA22.EMP_DEPNO_FK) - parent keys not found
+
+
+SQL> ALTER TABLE EMPLOYEE1
+  2  ADD CONSTRAINT EMP_DEPTNO_FK FOREIGN KEY(DEPNO) REFERENCES DEPARTMENT1(DEPTNO);
+ADD CONSTRAINT EMP_DEPTNO_FK FOREIGN KEY(DEPNO) REFERENCES DEPARTMENT1(DEPTNO)
+               *
+ERROR at line 2:
+ORA-02298: cannot validate (DBDA22.EMP_DEPTNO_FK) - parent keys not found
+
+
+SQL> ALTER TABLE EMPLOYEE1
+  2  ADD CONSTRAINT EMP_DEPTNO_FK FOREIGN KEY(DEPNO) REFERENCES DEPARTMENT1(DEPTNO);
+ADD CONSTRAINT EMP_DEPTNO_FK FOREIGN KEY(DEPNO) REFERENCES DEPARTMENT1(DEPTNO)
+               *
+ERROR at line 2:
+ORA-02298: cannot validate (DBDA22.EMP_DEPTNO_FK) - parent keys not found
+
+
+SQL> SELECT * FROM EMPLOYEE1;
+
+     EMPID ENAME		JOB			MAGANER HIREDATE       SALAY  COMMISION      DEPNO G
+---------- -------------------- -------------------- ---------- --------- ---------- ---------- ---------- -
+      7369 smith		clerk			   7902 17-DEC-80	1300			20 M
+      7499 allen		salsman 		   7698 20-FEB-81	2340	    300 	30 F
+      7521 ward 		salsman 		   7698 22-FEB-81	1885	    500 	30 M
+      7566 jones		manager 		   7839 02-MAR-81	3175			20 F
+      7654 martin		salsman 		   7698 28-SEP-81	1885	   1400 	30 M
+      7698 blake		manager 		   7839 01-MAY-81	3050			30 M
+      7782 clark		manager 		   7839 09-JUN-81	2650			10 M
+      7788 scott		analyst 		   7566 19-APR-87	4992			20 F
+      7839 king 		president			17-NOV-81	6760			10 M
+      7844 turner		salsman 		   7600 08-SEP-81	2210	      0 	30 F
+      7876 admas		clerk			   7788 23-MAY-87	1690			20 M
+      7879 james		clerk			   7698 03-DEC-87	1495			30 F
+      7902 ford 		analyst 		   7566 03-DEC-81	4992			20 M
+
+13 rows selected.
+
+SQL> DESC DEPARTMENT1;
+ Name										  Null?    Type
+ -------------------------------------------------------------------------------- -------- ------------------------------------------------------
+ DEPTNO 									  NOT NULL NUMBER(2)
+ DNAME										   VARCHAR2(14)
+ LOC										   VARCHAR2(13)
+
+SQL> SET PAGES 145
+SQL> SET LINES 145;
+SQL> DESC DEPARTMENT1;
+ Name										  Null?    Type
+ -------------------------------------------------------------------------------- -------- ------------------------------------------------------
+ DEPTNO 									  NOT NULL NUMBER(2)
+ DNAME										   VARCHAR2(14)
+ LOC										   VARCHAR2(13)
+
+SQL> INSERT INTO TABLE DEPARTMENT1 VALUES(&DEPTNO,'&DNAME','&LOC');
+Enter value for deptno: 10
+Enter value for dname: PHYSICS
+Enter value for loc: PUNE
+old   1: INSERT INTO TABLE DEPARTMENT1 VALUES(&DEPTNO,'&DNAME','&LOC')
+new   1: INSERT INTO TABLE DEPARTMENT1 VALUES(10,'PHYSICS','PUNE')
+INSERT INTO TABLE DEPARTMENT1 VALUES(10,'PHYSICS','PUNE')
+            *
+ERROR at line 1:
+ORA-00903: invalid table name
+
+
+SQL> /
+Enter value for deptno: INSERT INTO DEPARTMENT1 VALUES(&DEPTNO,'&DNAME','&LOC');
+Enter value for dname: 10
+Enter value for loc: PHYSICS
+old   1: INSERT INTO TABLE DEPARTMENT1 VALUES(&DEPTNO,'&DNAME','&LOC')
+new   1: INSERT INTO TABLE DEPARTMENT1 VALUES(INSERT INTO DEPARTMENT1 VALUES(&DEPTNO,'&DNAME','&LOC');,'10','PHYSICS')
+SP2-0552: Bind variable "DEPTNO" not declared.
+SQL> INSERT INTO DEPARTMENT1 VALUES(&DEPTNO,'&DNAME','&LOC');
+Enter value for deptno: 10
+Enter value for dname: PHYSICS
+Enter value for loc: PUNE
+old   1: INSERT INTO DEPARTMENT1 VALUES(&DEPTNO,'&DNAME','&LOC')
+new   1: INSERT INTO DEPARTMENT1 VALUES(10,'PHYSICS','PUNE')
+
+1 row created.
+
+SQL> /
+Enter value for deptno: 20
+Enter value for dname: CHEMISTYR
+Enter value for loc: SATARA
+old   1: INSERT INTO DEPARTMENT1 VALUES(&DEPTNO,'&DNAME','&LOC')
+new   1: INSERT INTO DEPARTMENT1 VALUES(20,'CHEMISTYR','SATARA')
+
+1 row created.
+
+SQL> /
+Enter value for deptno: 30
+Enter value for dname: MATHS
+Enter value for loc: MUMBAI
+old   1: INSERT INTO DEPARTMENT1 VALUES(&DEPTNO,'&DNAME','&LOC')
+new   1: INSERT INTO DEPARTMENT1 VALUES(30,'MATHS','MUMBAI')
+
+1 row created.
+
+SQL> SELECT * FROM EMPLOYEE1;
+
+     EMPID ENAME		JOB			MAGANER HIREDATE       SALAY  COMMISION      DEPNO G
+---------- -------------------- -------------------- ---------- --------- ---------- ---------- ---------- -
+      7369 smith		clerk			   7902 17-DEC-80	1300			20 M
+      7499 allen		salsman 		   7698 20-FEB-81	2340	    300 	30 F
+      7521 ward 		salsman 		   7698 22-FEB-81	1885	    500 	30 M
+      7566 jones		manager 		   7839 02-MAR-81	3175			20 F
+      7654 martin		salsman 		   7698 28-SEP-81	1885	   1400 	30 M
+      7698 blake		manager 		   7839 01-MAY-81	3050			30 M
+      7782 clark		manager 		   7839 09-JUN-81	2650			10 M
+      7788 scott		analyst 		   7566 19-APR-87	4992			20 F
+      7839 king 		president			17-NOV-81	6760			10 M
+      7844 turner		salsman 		   7600 08-SEP-81	2210	      0 	30 F
+      7876 admas		clerk			   7788 23-MAY-87	1690			20 M
+      7879 james		clerk			   7698 03-DEC-87	1495			30 F
+      7902 ford 		analyst 		   7566 03-DEC-81	4992			20 M
+
+13 rows selected.
+
+SQL> SELECT * FROM DEPARTMENT1;
+
+    DEPTNO DNAME	  LOC
+---------- -------------- -------------
+	10 PHYSICS	  PUNE
+	20 CHEMISTYR	  SATARA
+	30 MATHS	  MUMBAI
+
+SQL> DESC EMPLOYEE1;
+ Name										  Null?    Type
+ -------------------------------------------------------------------------------- -------- ------------------------------------------------------
+ EMPID											   NUMBER
+ ENAME											   VARCHAR2(20)
+ JOB											   VARCHAR2(20)
+ MAGANER										   NUMBER
+ HIREDATE										   DATE
+ SALAY											   NUMBER
+ COMMISION										   NUMBER
+ DEPNO											   NUMBER
+ GENDER 										   CHAR(1)
+
+SQL> SELECT ENAME FROM EMPLOYEE1
+  2  WHERE EMPID IN MANAGER;
+WHERE EMPID IN MANAGER
+               *
+ERROR at line 2:
+ORA-00904: "MANAGER": invalid identifier
+
+
+SQL> SELECT ENAME FROM EMPLOYEE1
+  2  HAVING EMPID IN MAGANER;
+HAVING EMPID IN MAGANER
+       *
+ERROR at line 2:
+ORA-00979: not a GROUP BY expression
+
+
+SQL> SELECT ENAME FROM EMPLOYEE1
+  2  WHERE EMPID IN MAGANER;
+
+no rows selected
+
+SQL> SELECT *FROM BOOK1;
+
+   BOOK_NO BOOK_NAME	   AUTHOR		 COST CATEGORY
+---------- --------------- --------------- ---------- ----------
+       101 LET US C	   DENIS RITCHIE	  450 SYSTEM
+       102 ORACLE	   LONI 		  550 DATABASE
+       103 MASTERING SQL   LONI 		  300 DATABASE
+       104 PLSQL REF	   SCOTT URMAN		  750 DATABASE
+       105 NAT GEO	   ADIS SCOTT		 1000 SCIENCE
+
+SQL> SELECT *FROM LIB_ISSUE1;
+
+LIB_ISSUE_ID	BOOK_NO  MEMBER_ID ISSUE_DAT RETURN_DA
+------------ ---------- ---------- --------- ---------
+	7005	    104 	 2 15-NOV-06 30-NOV-06
+	7006	    101 	 3 18-FEB-06
+	7001	    101 	 1 10-DEC-06
+	7002	    102 	 2 25-DEC-06
+	7003	    104 	 1 15-JAN-06
+	7004	    101 	 1 04-JUL-06 19-JUL-06
+
+6 rows selected.
+
+SQL> SELECT *FROM MEMBER1;
+
+ MEMBER_ID MEMBER_NAME					      MEMBER_ADDR	 ACC_OPEN_ MEMBERSHIP_TYPE
+---------- -------------------------------------------------- -------------------------------------------------- --------- --------------------
+ FEES_PAID MAX_BOOKS_ALLOWED PENULTY_AMT
+---------- ----------------- -----------
+	 1 Richa Sharma 				      pune		 10-DEC-05 LIFETIME
+      2500		   5	   50000
+
+	 2 Garmima Sen					      pune		 26-MAR-19 ANUAL
+      1000		   3
+
+	 3 neeraj					      thane		 02-MAR-15 ANUAL
+      3489		   2	   20000
+
+	 4 prathamesh					      nashik		 07-JUN-14 ANUAL
+      1200		   4	   34000
+
+	 5 Akshay					      Nasik		 12-MAY-18 LIFETIME
+      2367		   5	67890.67
+
+	 6 gogo 					      Solapur		 23-MAY-18 HALF YEARLY
+      4350		   6	12345.67
+
+	 7 Swarnya					      Latur		 04-MAR-15 ANUAL
+      3456		   2	45675.48
+
+
+7 rows selected.
+
+SQL> SELECT * FROM BOOK1 WHERE AUTHOR='LONI' AND COST<600;
+
+   BOOK_NO BOOK_NAME	   AUTHOR		 COST CATEGORY
+---------- --------------- --------------- ---------- ----------
+       102 ORACLE	   LONI 		  550 DATABASE
+       103 MASTERING SQL   LONI 		  300 DATABASE
+
+SQL> SELECT * FROM LIB_ISSUE1 WHERE RETURN_DATE IS NULL;
+
+LIB_ISSUE_ID	BOOK_NO  MEMBER_ID ISSUE_DAT RETURN_DA
+------------ ---------- ---------- --------- ---------
+	7006	    101 	 3 18-FEB-06
+	7001	    101 	 1 10-DEC-06
+	7002	    102 	 2 25-DEC-06
+	7003	    104 	 1 15-JAN-06
+
+SQL> UPDATE LIB_ISSUE1
+  2  SET RETURN_DATE='31-DEC-06'
+  3  WHERE LIB_ISSUE_ID NOT IN(7005,7006);
+
+4 rows updated.
+
+SQL> SELECT * FROM LIB_ISSUE1 WHERE ABS(RETURN_DATE-ISSUE_DATE)>30;
+
+LIB_ISSUE_ID	BOOK_NO  MEMBER_ID ISSUE_DAT RETURN_DA
+------------ ---------- ---------- --------- ---------
+	7003	    104 	 1 15-JAN-06 31-DEC-06
+	7004	    101 	 1 04-JUL-06 31-DEC-06
+
+SQL> SELECT * FROM LIB_ISSUE1 WHERE ABS(RETURN_DATE-ISSUE_DATE)>30 OR ABS(RETURN_DATE-ISSUE_DATE)IS NULL ;
+
+LIB_ISSUE_ID	BOOK_NO  MEMBER_ID ISSUE_DAT RETURN_DA
+------------ ---------- ---------- --------- ---------
+	7006	    101 	 3 18-FEB-06
+	7003	    104 	 1 15-JAN-06 31-DEC-06
+	7004	    101 	 1 04-JUL-06 31-DEC-06
+
+SQL> SELECT BOOK_NAME FROM BOOK1 WHERE COST BETWEEN 500 AND 750
+  2  AND CATEGORY='DATABASE';
+
+BOOK_NAME
+---------------
+ORACLE
+PLSQL REF
+
+SQL> SELECT BOOK_NAME FROM BOOK1 WHERE CATEGORY IN('SCIENCE',DATABASE','FICTION','MANAGEMENT');
+ERROR:
+ORA-01756: quoted string not properly terminated
+
+
+SQL> SELECT BOOK_NAME FROM BOOK1 WHERE CATEGORY IN('SCIENCE','DATABASE','FICTION','MANAGEMENT');
+
+BOOK_NAME
+---------------
+ORACLE
+MASTERING SQL
+PLSQL REF
+NAT GEO
+
+SQL> SELECT MEMBER_NAME FROM MEMBER1 ORDER BY DESC PENULTY_AMT;
+SELECT MEMBER_NAME FROM MEMBER1 ORDER BY DESC PENULTY_AMT
+                                         *
+ERROR at line 1:
+ORA-00936: missing expression
+
+
+SQL> SELECT MEMBER_NAME FROM MEMBER1 ORDER BY PENULTY_AMT;
+
+MEMBER_NAME
+--------------------------------------------------
+gogo
+neeraj
+prathamesh
+Swarnya
+Richa Sharma
+Akshay
+Garmima Sen
+
+7 rows selected.
+
+SQL> SELECT MEMBER_NAME FROM MEMBER1 ORDER BY DES PENULTY_AMT;
+SELECT MEMBER_NAME FROM MEMBER1 ORDER BY DES PENULTY_AMT
+                                             *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended
+
+
+SQL> SELECT MEMBER_NAME FROM MEMBER1 ORDER BY DES PENULTY_AMT;
+SELECT MEMBER_NAME FROM MEMBER1 ORDER BY DES PENULTY_AMT
+                                             *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended
+
+
+SQL> SELECT MEMBER_NAME FROM MEMBER1 ORDER BY ASC PENULTY_AMT;
+SELECT MEMBER_NAME FROM MEMBER1 ORDER BY ASC PENULTY_AMT
+                                         *
+ERROR at line 1:
+ORA-00936: missing expression
+
+
+SQL> SELECT MEMBER_NAME FROM MEMBER1 ORDER BY DES PENULTY_AMT;
+SELECT MEMBER_NAME FROM MEMBER1 ORDER BY DES PENULTY_AMT
+                                             *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended
+
+
+SQL> SELECT MEMBER_NAME FROM MEMBER1 ORDER BY PENULTY_AMT;
+
+MEMBER_NAME
+--------------------------------------------------
+gogo
+neeraj
+prathamesh
+Swarnya
+Richa Sharma
+Akshay
+Garmima Sen
+
+7 rows selected.
+
+SQL> SELECT MEMBER_NAME FROM MEMBER1 ORDER BY PENULTY_AMT DESC;
+
+MEMBER_NAME
+--------------------------------------------------
+Garmima Sen
+Akshay
+Richa Sharma
+Swarnya
+prathamesh
+neeraj
+gogo
+
+7 rows selected.
+
+SQL> SELECT MEMBER_NAME FROM MEMBER1 ORDER BY PENULTY_AMT ASC;
+
+MEMBER_NAME
+--------------------------------------------------
+gogo
+neeraj
+prathamesh
+Swarnya
+Richa Sharma
+Akshay
+Garmima Sen
+
+7 rows selected.
+
+SQL> SELECT BOOK_NAME FROM BOOK1 WHERE BOOK_NAME LIKE'%SQL%';
+
+BOOK_NAME
+---------------
+MASTERING SQL
+PLSQL REF
+
+SQL> SELECT MEMBER_NAME FROM MEMBER1 WHERE MEMBER_NAME LIKE'%I%' AND MEMBER_NAME LIKE'R%' OR MEMBER_NAME LIKE'G%'; 
+
+MEMBER_NAME
+--------------------------------------------------
+Garmima Sen
+
+SQL> SELECT UPPER(AUTHOR),INITCAP(BOOK_NAME) FROM BOOK1 ORDER BY BOOK_NAME;
+
+UPPER(AUTHOR)	INITCAP(BOOK_NA
+--------------- ---------------
+DENIS RITCHIE	Let Us C
+LONI		Mastering Sql
+ADIS SCOTT	Nat Geo
+LONI		Oracle
+SCOTT URMAN	Plsql Ref
+
+SQL> SELECT TO_CHAR(ISSUE_DATE,'Day')||','||TO_CHAR(ISSUE_DATE,'Month')||','||TO_CHAR(ISSUE_DATE,'DD')||','||TO_CHAR(ISSUE_DATE,'YYYY') FROM LIB_ISSUE1 WHERE BOOK_NO=101;
+
+TO_CHAR(ISSUE_DATE,'DAY')||
+---------------------------
+Saturday ,February ,18,2006
+Sunday	 ,December ,10,2006
+Tuesday  ,July	   ,04,2006
+
+SQL> SELECT TO_CHAR(ISSUE_DATE,'Day')||','||TO_CHAR(ISSUE_DATE,'Month')||','||TO_CHAR(ISSUE_DATE,'DD')||','||TO_CHAR(ISSUE_DATE,'YYYY') FROM LIB_ISSUE1 WHERE MEMBER_ID=7006;
+
+no rows selected
+
+SQL> SELECT TO_CHAR(ISSUE_DATE,'Day')||','||TO_CHAR(ISSUE_DATE,'Month')||','||TO_CHAR(ISSUE_DATE,'DD')||','||TO_CHAR(ISSUE_DATE,'YYYY') FROM LIB_ISSUE1 WHERE MEMBER_ID=7005;
+
+no rows selected
+
+SQL> SELECT TO_CHAR(ISSUE_DATE,'Day')||','||TO_CHAR(ISSUE_DATE,'Month')||','||TO_CHAR(ISSUE_DATE,'DD')||','||TO_CHAR(ISSUE_DATE,'YYYY') FROM LIB_ISSUE1 WHERE LIB_ISSUE_ID=7003;
+
+TO_CHAR(ISSUE_DATE,'DAY')||
+---------------------------
+Sunday	 ,January  ,15,2006
+
+SQL> SELECT TO_CHAR(ISSUE_DATE,'Day')||','||TO_CHAR(ISSUE_DATE,'Month')||','||TO_CHAR(ISSUE_DATE,'DD')||','||TO_CHAR(ISSUE_DATE,'YYYY') AS DATE FROM LIB_ISSUE1 WHERE LIB_ISSUE_ID=7003;
+SELECT TO_CHAR(ISSUE_DATE,'Day')||','||TO_CHAR(ISSUE_DATE,'Month')||','||TO_CHAR(ISSUE_DATE,'DD')||','||TO_CHAR(ISSUE_DATE,'YYYY') AS DATE FROM LIB_ISSUE1 WHERE LIB_ISSUE_ID=7003
+                                                                                                                                      *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected
+
+
+SQL> SELECT TO_CHAR(ISSUE_DATE,'Day') AS DATE||','||TO_CHAR(ISSUE_DATE,'Month')||','||TO_CHAR(ISSUE_DATE,'DD')||','||TO_CHAR(ISSUE_DATE,'YYYY') FROM LIB_ISSUE1 WHERE LIB_ISSUE_ID=7003;
+SELECT TO_CHAR(ISSUE_DATE,'Day') AS DATE||','||TO_CHAR(ISSUE_DATE,'Month')||','||TO_CHAR(ISSUE_DATE,'DD')||','||TO_CHAR(ISSUE_DATE,'YYYY') FROM LIB_ISSUE1 WHERE LIB_ISSUE_ID=7003
+                                    *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected
+
+
+SQL> SELECT TO_CHAR(ISSUE_DATE,'Day')||','||TO_CHAR(ISSUE_DATE,'Month')||','||TO_CHAR(ISSUE_DATE,'DD')||','||TO_CHAR(ISSUE_DATE,'YYYY') AS DATE FROM LIB_ISSUE1 WHERE LIB_ISSUE_ID=7003;
+SELECT TO_CHAR(ISSUE_DATE,'Day')||','||TO_CHAR(ISSUE_DATE,'Month')||','||TO_CHAR(ISSUE_DATE,'DD')||','||TO_CHAR(ISSUE_DATE,'YYYY') AS DATE FROM LIB_ISSUE1 WHERE LIB_ISSUE_ID=7003
+                                                                                                                                      *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected
+
+
+SQL> SELECT TO_CHAR(ISSUE_DATE,'Day') AS DATE||','||TO_CHAR(ISSUE_DATE,'Month')||','||TO_CHAR(ISSUE_DATE,'DD')||','||TO_CHAR(ISSUE_DATE,'YYYY') FROM LIB_ISSUE1 WHERE LIB_ISSUE_ID=7003;
+SELECT TO_CHAR(ISSUE_DATE,'Day') AS DATE||','||TO_CHAR(ISSUE_DATE,'Month')||','||TO_CHAR(ISSUE_DATE,'DD')||','||TO_CHAR(ISSUE_DATE,'YYYY') FROM LIB_ISSUE1 WHERE LIB_ISSUE_ID=7003
+                                    *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected
+
+
+SQL> SELECT TO_CHAR(ISSUE_DATE,'Day') AS DATE||','||TO_CHAR(ISSUE_DATE,'Month')||','||TO_CHAR(ISSUE_DATE,'DD')||','||TO_CHAR(ISSUE_DATE,'YYYY') FROM LIB_ISSUE1 WHERE LIB_ISSUE_ID=7003;
+SELECT TO_CHAR(ISSUE_DATE,'Day') AS DATE||','||TO_CHAR(ISSUE_DATE,'Month')||','||TO_CHAR(ISSUE_DATE,'DD')||','||TO_CHAR(ISSUE_DATE,'YYYY') FROM LIB_ISSUE1 WHERE LIB_ISSUE_ID=7003
+                                    *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected
+
+
+SQL> SELECT TO_CHAR(ISSUE_DATE,'Day')||','||TO_CHAR(ISSUE_DATE,'Month')||','||TO_CHAR(ISSUE_DATE,'DD')||','||TO_CHAR(ISSUE_DATE,'YYYY') FROM LIB_ISSUE1 WHERE MEMBER_ID=7005;
+
+no rows selected
+
+SQL> SELECT TO_CHAR(ISSUE_DATE,'Day')||','||TO_CHAR(ISSUE_DATE,'Month')||','||TO_CHAR(ISSUE_DATE,'DD')||','||TO_CHAR(ISSUE_DATE,'YYYY') FROM LIB_ISSUE1 WHERE LIB_ISSUE_ID=7005;
+
+TO_CHAR(ISSUE_DATE,'DAY')||
+---------------------------
+Wednesday,November ,15,2006
+
+SQL> SELECT MEMBER_NAME FROM MEMBER1 WHERE TO_CHAR(ACC_OPEN_DATE,'YYYY')='2006';
+
+no rows selected
+
+SQL> SELECT MEMBER_NAME FROM MEMBER1 WHERE TO_CHAR(ACC_OPEN_DATE,'YYYY')='2005';
+
+MEMBER_NAME
+--------------------------------------------------
+Richa Sharma
+
+SQL> SELECT LIB_ISSUE_ID,ISSUE_DATE,RETURN_DATE,ABS(ISSUE_DATE - RETURN_DATE) FROM LIB_ISSUE1;
+
+LIB_ISSUE_ID ISSUE_DAT RETURN_DA ABS(ISSUE_DATE-RETURN_DATE)
+------------ --------- --------- ---------------------------
+	7005 15-NOV-06 30-NOV-06			  15
+	7006 18-FEB-06
+	7001 10-DEC-06 31-DEC-06			  21
+	7002 25-DEC-06 31-DEC-06			   6
+	7003 15-JAN-06 31-DEC-06			 350
+	7004 04-JUL-06 31-DEC-06			 180
+
+6 rows selected.
+
+SQL> SELECT SUBSTR(CATEGORY,1,1) FROM BOOK1;
+
+S
+-
+S
+D
+D
+D
+S
+
+SQL> SELECT CATEGORY,SUBSTR(CATEGORY,1,1) FROM BOOK1;
+
+CATEGORY   S
+---------- -
+SYSTEM	   S
+DATABASE   D
+DATABASE   D
+DATABASE   D
+SCIENCE    S
+
+SQL> SELECT *  FROM MEMBER1 ORDER BY ISSUE_DATE;
+SELECT *  FROM MEMBER1 ORDER BY ISSUE_DATE
+                                *
+ERROR at line 1:
+ORA-00904: "ISSUE_DATE": invalid identifier
+
+
+SQL> SELECT *  FROM MEMBER1 ORDER BY ACC_OPEN_DATE;
+
+ MEMBER_ID MEMBER_NAME					      MEMBER_ADDR	 ACC_OPEN_ MEMBERSHIP_TYPE
+---------- -------------------------------------------------- -------------------------------------------------- --------- --------------------
+ FEES_PAID MAX_BOOKS_ALLOWED PENULTY_AMT
+---------- ----------------- -----------
+	 1 Richa Sharma 				      pune		 10-DEC-05 LIFETIME
+      2500		   5	   50000
+
+	 4 prathamesh					      nashik		 07-JUN-14 ANUAL
+      1200		   4	   34000
+
+	 3 neeraj					      thane		 02-MAR-15 ANUAL
+      3489		   2	   20000
+
+	 7 Swarnya					      Latur		 04-MAR-15 ANUAL
+      3456		   2	45675.48
+
+	 5 Akshay					      Nasik		 12-MAY-18 LIFETIME
+      2367		   5	67890.67
+
+	 6 gogo 					      Solapur		 23-MAY-18 HALF YEARLY
+      4350		   6	12345.67
+
+	 2 Garmima Sen					      pune		 26-MAR-19 ANUAL
+      1000		   3
+
+
+7 rows selected.
+
+SQL> SELECT COUNT(*) FROM LIB_ISSUE1  WHERE MEMBER_ID=7005';
+ERROR:
+ORA-01756: quoted string not properly terminated
+
+
+SQL> SELECT COUNT(*) FROM LIB_ISSUE1  WHERE MEMBER_ID=7005;
+
+  COUNT(*)
+----------
+	 0
+
+SQL> SELECT COUNT(*) FROM LIB_ISSUE1  WHERE MEMBER_ID=7004;
+
+  COUNT(*)
+----------
+	 0
+
+SQL> SELECT COUNT(BOOK_NO) FROM LIB_ISSUE1  WHERE LIB_ISSUE_ID=7006;
+
+COUNT(BOOK_NO)
+--------------
+	     1
+
+SQL> SELECT COUNT(*) FROM LIB_ISSUE1  WHERE LIB_ISSUE_ID=7006;
+
+  COUNT(*)
+----------
+	 1
+
+SQL> SELECT SUM(PENULTY_AMT) FROM LIB_ISSUE1 ;
+SELECT SUM(PENULTY_AMT) FROM LIB_ISSUE1
+           *
+ERROR at line 1:
+ORA-00904: "PENULTY_AMT": invalid identifier
+
+
+SQL> SELECT SUM(PENULTY_AMT) FROM MEMBER1 ;
+
+SUM(PENULTY_AMT)
+----------------
+       229911.82
+
+SQL> SELECT * FROM LIB_ISSUE1;
+
+LIB_ISSUE_ID	BOOK_NO  MEMBER_ID ISSUE_DAT RETURN_DA
+------------ ---------- ---------- --------- ---------
+	7005	    104 	 2 15-NOV-06 30-NOV-06
+	7006	    101 	 3 18-FEB-06
+	7001	    101 	 1 10-DEC-06 31-DEC-06
+	7002	    102 	 2 25-DEC-06 31-DEC-06
+	7003	    104 	 1 15-JAN-06 31-DEC-06
+	7004	    101 	 1 04-JUL-06 31-DEC-06
+
+6 rows selected.
+
+SQL> SELECT * FROM BOOK1;
+
+   BOOK_NO BOOK_NAME	   AUTHOR		 COST CATEGORY
+---------- --------------- --------------- ---------- ----------
+       101 LET US C	   DENIS RITCHIE	  450 SYSTEM
+       102 ORACLE	   LONI 		  550 DATABASE
+       103 MASTERING SQL   LONI 		  300 DATABASE
+       104 PLSQL REF	   SCOTT URMAN		  750 DATABASE
+       105 NAT GEO	   ADIS SCOTT		 1000 SCIENCE
+
+SQL> SELECT * FROM MEMBER1;
+
+ MEMBER_ID MEMBER_NAME					      MEMBER_ADDR	 ACC_OPEN_ MEMBERSHIP_TYPE
+---------- -------------------------------------------------- -------------------------------------------------- --------- --------------------
+ FEES_PAID MAX_BOOKS_ALLOWED PENULTY_AMT
+---------- ----------------- -----------
+	 1 Richa Sharma 				      pune		 10-DEC-05 LIFETIME
+      2500		   5	   50000
+
+	 2 Garmima Sen					      pune		 26-MAR-19 ANUAL
+      1000		   3
+
+	 3 neeraj					      thane		 02-MAR-15 ANUAL
+      3489		   2	   20000
+
+	 4 prathamesh					      nashik		 07-JUN-14 ANUAL
+      1200		   4	   34000
+
+	 5 Akshay					      Nasik		 12-MAY-18 LIFETIME
+      2367		   5	67890.67
+
+	 6 gogo 					      Solapur		 23-MAY-18 HALF YEARLY
+      4350		   6	12345.67
+
+	 7 Swarnya					      Latur		 04-MAR-15 ANUAL
+      3456		   2	45675.48
+
+
+7 rows selected.
+
+SQL> SELECT SUM(MAX_BOOKS_ALLOWED) FROM MEMBER1;
+
+SUM(MAX_BOOKS_ALLOWED)
+----------------------
+		    27
+
+SQL> SELECT AVG(FEES_PAID) FROM MEMBER1;
+
+AVG(FEES_PAID)
+--------------
+    2623.14286
+
+SQL> SELECT ABS(ISSUE_DATE - RETURN_DATE)/30 FROM LIB_ISSUE1;
+
+ABS(ISSUE_DATE-RETURN_DATE)/30
+------------------------------
+			    .5
+
+			    .7
+			    .2
+		    11.6666667
+			     6
+
+6 rows selected.
+
+SQL> SELECT LENGTH(MEMBER_NAME) FROM MEMBER1;
+
+LENGTH(MEMBER_NAME)
+-------------------
+		 12
+		 11
+		  6
+		 10
+		  6
+		  4
+		  7
+
+7 rows selected.
+
+SQL> SELECT MEMBER_NAME,LENGTH(MEMBER_NAME) FROM MEMBER1;
+
+MEMBER_NAME					   LENGTH(MEMBER_NAME)
+-------------------------------------------------- -------------------
+Richa Sharma							    12
+Garmima Sen							    11
+neeraj								     6
+prathamesh							    10
+Akshay								     6
+gogo								     4
+Swarnya 							     7
+
+7 rows selected.
+
+SQL> SELECT TO_CHAR(MAX(ISSUE_DATE),'DAY') AS LAST FROM LIB_ISSUE1; 
+
+LAST
+---------
+MONDAY
+
+SQL> SELECT MEMBER_ID,TO_CHAR(MAX(ISSUE_DATE),'DAY') AS LAST FROM LIB_ISSUE1; 
+SELECT MEMBER_ID,TO_CHAR(MAX(ISSUE_DATE),'DAY') AS LAST FROM LIB_ISSUE1
+       *
+ERROR at line 1:
+ORA-00937: not a single-group group function
+
+
+SQL> SELECT MEMBER_ID,TO_CHAR(MAX(ISSUE_DATE),'DAY') AS LAST FROM LIB_ISSUE1 GROUP BY MEMBER_ID; 
+
+ MEMBER_ID LAST
+---------- ---------
+	 1 SUNDAY
+	 2 MONDAY
+	 3 SATURDAY
+
+

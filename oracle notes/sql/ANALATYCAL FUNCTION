@@ -1,0 +1,83 @@
+ select * from employee1;
+
+     EMPID ENAME		JOB			MAGANER HIREDATE       SALAY  COMMISION      DEPNO G
+---------- -------------------- -------------------- ---------- --------- ---------- ---------- ---------- -
+      7369 smith		clerk			   7902 17-DEC-80	1300			20 M
+      7499 allen		salsman 		   7698 20-FEB-81	2340	    300 	30 F
+      7521 ward 		salsman 		   7698 22-FEB-81	1885	    500 	30 M
+      7566 jones		manager 		   7839 02-MAR-81	3175			20 F
+      7654 martin		salsman 		   7698 28-SEP-81	1885	   1400 	30 M
+      7698 blake		manager 		   7839 01-MAY-81	3050			30 M
+      7782 clark		manager 		   7839 09-JUN-81	2650			10 M
+      7788 scott		analyst 		   7566 19-APR-87	4992			20 F
+      7839 king 		president			17-NOV-81	6760			10 M
+      7844 turner		salsman 		   7600 08-SEP-81	2210	      0 	30 F
+      7876 admas		clerk			   7788 23-MAY-87	1690			20 M
+      7879 james		clerk			   7698 03-DEC-87	1495			30 F
+      7902 ford 		analyst 		   7566 03-DEC-81	4992			20 M
+
+13 rows selected.
+
+SQL> SELECT EMPID,ENAME,SALAY,DEPNO RANK() OVER(PARTITION BY DEPNO ORDER BY SALAY DESC) AS RANK FROM EMPLOYEE;
+SELECT EMPID,ENAME,SALAY,DEPNO RANK() OVER(PARTITION BY DEPNO ORDER BY SALAY DESC) AS RANK FROM EMPLOYEE
+                                   *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected
+
+
+SQL> SELECT EMPID,ENAME,SALAY,DEPNO,RANK() OVER(PARTITION BY DEPNO ORDER BY SALAY DESC) AS RANK FROM EMPLOYEE;
+SELECT EMPID,ENAME,SALAY,DEPNO,RANK() OVER(PARTITION BY DEPNO ORDER BY SALAY DESC) AS RANK FROM EMPLOYEE
+                                                                       *
+ERROR at line 1:
+ORA-00904: "SALAY": invalid identifier
+
+
+SQL> SELECT EMPID,ENAME,DEPNO,RANK() OVER(PARTITION BY DEPNO ORDER BY SALAY DESC) AS RANK FROM EMPLOYEE;
+SELECT EMPID,ENAME,DEPNO,RANK() OVER(PARTITION BY DEPNO ORDER BY SALAY DESC) AS RANK FROM EMPLOYEE
+                                                                 *
+ERROR at line 1:
+ORA-00904: "SALAY": invalid identifier
+
+
+SQL> SELECT EMPID,ENAME,SALAY,DEPNO,RANK() OVER(PARTITION BY DEPNO ORDER BY SALAY DESC) AS RANK FROM EMPLOYEE1;
+
+     EMPID ENAME		     SALAY	DEPNO	    RANK
+---------- -------------------- ---------- ---------- ----------
+      7839 king 		      6760	   10	       1
+      7782 clark		      2650	   10	       2
+      7788 scott		      4992	   20	       1
+      7902 ford 		      4992	   20	       1
+      7566 jones		      3175	   20	       3
+      7876 admas		      1690	   20	       4
+      7369 smith		      1300	   20	       5
+      7698 blake		      3050	   30	       1
+      7499 allen		      2340	   30	       2
+      7844 turner		      2210	   30	       3
+      7521 ward 		      1885	   30	       4
+      7654 martin		      1885	   30	       4
+      7879 james		      1495	   30	       6
+
+13 rows selected.
+
+SQL> SELECT EMPID,ENAME,SALAY,DEPNO,RANK() OVER(PARTITION BY DEPNO ORDER BY SALAY DESC) AS RANK ,
+  2  DENSE_RANK() OVER(PARTITION BY DEPNO ORDER BY SALAY DESC) AS D_RANK ,
+  3  ROW_NUMBER() OVER(PARTITION BY DEPNO ORDER BY SALAY DESC) AS ROW_NUM FROM EMPLOYEE1;
+
+     EMPID ENAME		     SALAY	DEPNO	    RANK     D_RANK    ROW_NUM
+---------- -------------------- ---------- ---------- ---------- ---------- ----------
+      7839 king 		      6760	   10	       1	  1	     1
+      7782 clark		      2650	   10	       2	  2	     2
+      7788 scott		      4992	   20	       1	  1	     1
+      7902 ford 		      4992	   20	       1	  1	     2
+      7566 jones		      3175	   20	       3	  2	     3
+      7876 admas		      1690	   20	       4	  3	     4
+      7369 smith		      1300	   20	       5	  4	     5
+      7698 blake		      3050	   30	       1	  1	     1
+      7499 allen		      2340	   30	       2	  2	     2
+      7844 turner		      2210	   30	       3	  3	     3
+      7521 ward 		      1885	   30	       4	  4	     4
+      7654 martin		      1885	   30	       4	  4	     5
+      7879 james		      1495	   30	       6	  5	     6
+
+13 rows selected.
+

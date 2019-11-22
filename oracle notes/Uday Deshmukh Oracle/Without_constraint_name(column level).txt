@@ -1,0 +1,183 @@
+
+SQL> create table member
+  2  (
+  3  Member_Id Number(5) primary key,
+  4   Member_Name Varchar2(30),
+  5   Member_address Varchar2(50),
+  6   Acc_Open_Date Date,
+  7   Membership_type varchar2(20),
+  8   Fees_paid Number(4),
+  9   Max_Books_Allowed Number(2),
+ 10   Penalty_Amount     Number(5)
+ 11   );
+
+Table created.
+
+SQL> desc member;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ MEMBER_ID                                 NOT NULL NUMBER(5)
+ MEMBER_NAME                                        VARCHAR2(30)
+ MEMBER_ADDRESS                                     VARCHAR2(50)
+ ACC_OPEN_DATE                                      DATE
+ MEMBERSHIP_TYPE                                    VARCHAR2(20)
+ FEES_PAID                                          NUMBER(4)
+ MAX_BOOKS_ALLOWED                                  NUMBER(2)
+ PENALTY_AMOUNT                                     NUMBER(5)
+
+SQL>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
