@@ -100,7 +100,7 @@ print("You ward has secured "+str(java)+" marks in java")
 
 print("your ward secured %5d in Java and %s in maths" %(java,maths))
 	
-	# %5d will reserve it for having only 5 digits and if your input fewer than 5 they remain empty
+	# %5d will reserve it for having atleast 5 digits and if your input fewer than 5 they remain empty spaces which will be seen. so %5d with 3 digits will have 2 spaces before it and then 3 digits.
 	#alternate way
 
 print("your ward secured {0} in java and {1} in maths".format(java,maths))
