@@ -4,9 +4,11 @@ c=int(input("Enter a no"))
 
 d=input("Enter the character to print")
 
+print(d*a)
+print(d*b)
+print(d*c)
 
-
-
+'''
 while a>0:
     print(d,end="",sep="")  
     a=a-1
@@ -23,5 +25,5 @@ while c>0:
     print(d,end="",sep="")  
     c=c-1
      
-
+'''
 
