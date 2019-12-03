@@ -1,0 +1,7 @@
+112:aaa:HR:10000:Manager
+113:aba:Design:12000:Analyst
+114:xxx:HR:5000:Clerk
+115:yyy:HR:10000:Manager
+116:zzz:Purchase:20000:Manager
+117:zzz:Purchase:30000:Manager
+118:zzz:Purchase:40000:Manager
