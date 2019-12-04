@@ -1,0 +1,5 @@
+114:xxx:HR:5000:Clerk
+116:zzz:Purchase:20000:Manager
+117:zzz:Purchase:30000:Manager
+118:zzz:Purchase:40000:Manager
+119:amam:ha:10000:hgasvdh

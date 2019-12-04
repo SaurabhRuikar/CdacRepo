@@ -89,7 +89,7 @@ while choice !=6:
                 di[j] = [int(data[3]), 1]
 
         for i in di.keys():
-            di[i] = di[i][0]/di[i][1]
+            di[i] = round(di[i][0]/di[i][1])
         print(di)
             
         
