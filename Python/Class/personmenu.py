@@ -1,4 +1,5 @@
 from personclass import *
+from SalException import SalaryException
 
 def addPerson(lst):
     pid=int(input("Enter the pid"))
@@ -63,16 +64,25 @@ def searchByName(lst,name):
 
 
 def addSalaried(lst):
+    
     pid=int(input("Enter the pid"))
     name=input("Enter the name")
     mob=input("Enter the mobile no")
     dept=input("Enter the department")
     desg=input("Enter the designation")
-    sal=int(input("Enter the salary"))
-    bonus=int(input("Enter the bonus"))
-    s=SalariedEmp(pid,name,mob,dept,desg,sal,bonus)
-    lst.append(s)
-
+    for i in range(3):
+        try:
+            sal=int(input("Enter the salary"))
+            if sal<1000:
+                raise SalaryException("Salary should be greater then or equal to 1000")
+            bonus=int(input("Enter the bonus"))
+            s=SalariedEmp(pid,name,mob,dept,desg,sal,bonus)
+            lst.append(s)
+            break
+        except SalaryException as e:
+            print(e)
+    else:
+        print("Wrong Input thrice! chances over")
  
 
 
