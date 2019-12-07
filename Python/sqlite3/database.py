@@ -53,7 +53,7 @@ def displayID():
 #ans="y"
 choice=0
 while choice!=6:
-    print("1. Inser Data ")    
+    print("1. Insert Data ")    
     print("2. Delete Data ")    
     print("3. Modify Data")    
     print("4. Display All ")    
