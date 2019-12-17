@@ -1,0 +1,15 @@
+A	B	C	D
+25	45	30	54
+30	55	25	60
+28	29	33	51
+36	56	37	62
+29	40	27	73
+
+
+
+print('Ridge with Alpha 50')
+print('Coefficients : ',rr50.coef_)
+print('Intercept : ',rr50.intercept_)
+print('Train score : ',rr50.score(X_train,y_train))
+print('Test score : ',rr50.score(X_test,y_test))
+print()
