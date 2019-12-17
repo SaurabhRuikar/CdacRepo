@@ -1,0 +1,29 @@
+1)
+Using age file desgn all possible linear or non linear regression models.
+Check whether all parameters are important to consider for calculating weight.
+Decide which Model gives you good results.
+
+2)
+Design Monte Carlo model for ABC Clinic as discussed.
+
+
+1)
+
+multiple reg
+r2=0.530088810705066
+
+ols
+R-squared (uncentered): 0.954
+Adj. R-squared (uncentered): 0.954
+
+SVR
+R-squared (uncentered): 0.528
+Adj. R-squared (uncentered): 0.527
+
+Decision Tree
+R-squared (uncentered): 0.954
+Adj. R-squared (uncentered): 0.954
+
+Random Forest Regressor
+R-squared (uncentered): 0.954
+Adj. R-squared (uncentered): 0.954
