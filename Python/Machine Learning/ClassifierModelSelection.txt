@@ -1,0 +1,18 @@
+CLASS MODEL SELECTION
+
+K-Fold Validation
+
+LINEAR REGRESSION :0.82
+SVC rbf:0.9
+SVC linear:0.823
+Decision Tree Classifier:0.836
+Random Forest Classifier:0.8666
+KNearestNeighbors:0.903
+NaiveBayes:0.88333
+
+
+
+
+
+
+
