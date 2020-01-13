@@ -1,4 +1,0 @@
-consump <- read.csv("F:\\Statistics\\Datasets\\Individual_Consumption.csv")
-BUNDESBANK <- read.csv("F:\\Statistics\\Datasets\\BUNDESBANK-BBK01_WT5511.csv")
-BUNDESBANK_ts <- ts(BUNDESBANK$Value,start=c(1968,4), frequency = 12)
-class(BUNDESBANK_ts)

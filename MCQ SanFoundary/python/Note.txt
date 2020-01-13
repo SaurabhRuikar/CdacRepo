@@ -1,3 +1,0 @@
-$ cat > file1.txt
-
-This is my new file in Linux.
